@@ -19,6 +19,9 @@ public class Player extends GameObject
     HUD hud;
     private Game game;
     private BufferedImage player_image;
+    public float speed = 1;
+    public int puLength;
+    public PowerUps powerUps;
     
     public Player(final float x, final float y, final ID id, final Handler handler, final Game game) {
         super(x, y, id);
@@ -37,8 +40,8 @@ public class Player extends GameObject
     
     @Override
     public void tick() {
-        this.x += this.velX;
-        this.y += this.velY;
+        this.x += this.velX * speed;
+        this.y += this.velY * speed;
         this.x = Game.clamp(this.x, 0.0f, 600.0f);
         this.y = Game.clamp(this.y, 0.0f, 420.0f);
         if (hud.getLevel() == 20) {
@@ -48,13 +51,29 @@ public class Player extends GameObject
         if (this.id == ID.Player) {
             this.handler.addObject(new Trail(this.x, this.y, ID.Trail, 32.0f, 32.0f, 0.09f, this.handler, this.player_image));
         }
+        if (this.powerUps != PowerUps.None) {
+            if (puLength > 0) {
+                System.out.println(puLength);
+                if (this.powerUps == PowerUps.Speed) {
+                    if (puLength < speed * 10) {
+                        speed = 1 + (float) puLength / 10;
+                    }
+                }
+            } else {
+                this.powerUps = PowerUps.None;
+            }
+        }
+        if (puLength >= 1) {
+            puLength--;
+            System.out.println("subtract");
+        }
         this.collision();
     }
     
     private void collision() {
         for (int i = 0; i < this.handler.object.size(); ++i) {
             final GameObject tempObject = this.handler.object.get(i);
-            if ((tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.TargetEnemy || tempObject.getId() == ID.BasicEnemyT) && this.getBounds().intersects(tempObject.getBounds())) {
+            if ((tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.TargetEnemy) && this.getBounds().intersects(tempObject.getBounds())) {
                 if (Game.gameState == Game.STATE.Easy) {
                         --HUD.HEALTH;
                 }
@@ -63,6 +82,25 @@ public class Player extends GameObject
                 }
                 else if (Game.gameState == Game.STATE.Hard) {
                     HUD.HEALTH -= 4;
+                }
+            } else if (tempObject.getId() == ID.SpeedPU && this.getBounds().intersects(tempObject.getBounds())) {
+                if (Game.gameState == Game.STATE.Easy) {
+                    speed += 1.5;
+                    puLength = 300;
+                    this.powerUps = PowerUps.Speed;
+                    handler.removeObject(tempObject);
+                }
+                else if (Game.gameState == Game.STATE.Medium) {
+                    speed += 1;
+                    puLength = 200;
+                    this.powerUps = PowerUps.Speed;
+                    handler.removeObject(tempObject);
+                }
+                else if (Game.gameState == Game.STATE.Hard) {
+                    speed += .5;
+                    puLength = 100;
+                    this.powerUps = PowerUps.Speed;
+                    handler.removeObject(tempObject);
                 }
             }
             if (tempObject.getId() == ID.Boss1Enemy && this.getBounds().intersects(tempObject.getBounds())) {

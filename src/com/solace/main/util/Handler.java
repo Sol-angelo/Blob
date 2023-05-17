@@ -47,9 +47,6 @@ public class Handler extends MouseAdapter
                 this.object.clear();
                 this.addObject(new Player((float)(int)tempObject.getX(), (float)(int)tempObject.getY(), ID.Player, this, this.game));
 
-            } else if (tempObject.getId() == ID.PlayerT) {
-                this.object.clear();
-                this.addObject(new Player((float)(int)tempObject.getX(), (float)(int)tempObject.getY(), ID.PlayerT, this, this.game));
             }
         }
     }

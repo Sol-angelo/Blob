@@ -14,8 +14,6 @@ public enum ID
     Boss1Enemy, 
     Trail, 
     MenuParticle,
-    PlayerT,
-    BasicEnemyT,
-    PlayerProjectile,
-    Boss2Enemy
+    Boss2Enemy,
+    SpeedPU
 }

@@ -85,7 +85,7 @@ public class LoadSave {
         }
     }
 
-    public static void CreateAchivementsFile() {
+    public static void CreateAchievementsFile() {
         File txtFile = new File("res/data/achievements.txt");
         try {
             txtFile.createNewFile();

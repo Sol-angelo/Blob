@@ -5,6 +5,8 @@
 package com.solace.main;
 
 import com.solace.main.objects.MenuParticle;
+import com.solace.main.objects.Player;
+import com.solace.main.objects.enemies.BasicEnemy;
 import com.solace.main.util.*;
 
 import javax.sound.sampled.*;
@@ -40,7 +42,7 @@ public class Game extends Canvas implements Runnable
     
     public Game() {
         this.running = false;
-        gameState = STATE.Menu;
+        gameState = STATE.Easy;
         this.handler = new Handler(this);
         this.hud = new HUD(this, this.handler);
         this.menu = new Menu(this, this.handler, this.hud);
@@ -54,8 +56,11 @@ public class Game extends Canvas implements Runnable
         HUD.setHealth(100);
         HUD.setLevel(1);
         HUD.setScore(0);
-        LoadSave.ReadOnLoad();
+        this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this));
+        this.handler.clearEnemies();
         this.r = new Random();
+        this.handler.addObject(new BasicEnemy((float)this.r.nextInt(590), (float)this.r.nextInt(430), ID.BasicEnemy, this.handler, this));
+        LoadSave.ReadOnLoad();
         if (gameState == STATE.Menu || gameState == STATE.Death || gameState == STATE.Help || gameState == STATE.Difficulty) {
             for (int i = 0; i < 20; ++i) {
                 this.handler.addObject(new MenuParticle((float)this.r.nextInt(640), (float)this.r.nextInt(480), ID.MenuParticle, this.handler));

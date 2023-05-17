@@ -6,8 +6,16 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="optimised loadsave and sound system">
+      <change afterPath="$PROJECT_DIR$/src/com/solace/main/objects/powerups/SpeedPU.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/solace/main/util/PowerUps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/objects/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/objects/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Handler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/ID.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/ID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Spawn.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Spawn.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +46,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "jdk.selected.JAVA_MODULE": "17",
-    "last_opened_file_path": "/Users/caydenward/Desktop/Blob 2/res/music",
+    "last_opened_file_path": "/Users/caydenward/Desktop/Blob/res/sound",
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2"
@@ -46,6 +54,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/sound" />
       <recent name="$PROJECT_DIR$/res/music" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -93,6 +102,14 @@
       <option name="presentableId" value="Default" />
       <updated>1660779707432</updated>
     </task>
+    <task id="LOCAL-00001" summary="optimised loadsave and sound system">
+      <created>1684324951872</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1684324951872</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -105,5 +122,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="optimised loadsave and sound system" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimised loadsave and sound system" />
   </component>
 </project>
