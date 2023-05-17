@@ -54,8 +54,7 @@ public class Game extends Canvas implements Runnable
         HUD.setHealth(100);
         HUD.setLevel(1);
         HUD.setScore(0);
-        LoadSave.ReadFromSettingsFile();
-        LoadSave.ReadFromSaveFileAchievements();
+        LoadSave.ReadOnLoad();
         this.r = new Random();
         if (gameState == STATE.Menu || gameState == STATE.Death || gameState == STATE.Help || gameState == STATE.Difficulty) {
             for (int i = 0; i < 20; ++i) {
@@ -72,7 +71,8 @@ public class Game extends Canvas implements Runnable
         }
     }
 
-    public void playSound(String soundFile) {
+    public void playSound(String name) {
+        String soundFile = "res/sound/"+name+".wav";
         try {
             File f = new File(soundFile);
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
@@ -84,7 +84,8 @@ public class Game extends Canvas implements Runnable
         }
     }
 
-    public void stopSound(String soundFile) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+    public void stopSound(String name) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
+        String soundFile = "res/sound/"+name+".wav";
         File f = new File(soundFile);
         AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
         Clip clip = AudioSystem.getClip();

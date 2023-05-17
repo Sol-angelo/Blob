@@ -4,6 +4,7 @@ import com.solace.main.Game;
 import com.solace.main.util.HUD;
 
 import java.io.*;
+import java.util.concurrent.locks.Lock;
 
 public class LoadSave {
     private HUD hud;
@@ -21,8 +22,13 @@ public class LoadSave {
         this.game = game;
     }
 
+    public static boolean CheckForSaveFile(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        return txtFile.exists();
+    }
+
     public static void CreateSaveFile() {
-        ReadFromInfoFile();
+        ReadOnLoad();
         File txtFile = new File("res/data/saves/savedata"+saveAmount+".txt");
         try {
             txtFile.createNewFile();
@@ -44,9 +50,56 @@ public class LoadSave {
         }
     }
 
-    public static boolean CheckForSaveFile(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
-        return txtFile.exists();
+    public static void CreateInfoFile() {
+        File txtFile = new File("res/data/info.txt");
+        try {
+            txtFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PrintWriter pw = new PrintWriter(txtFile);
+            pw.println(saveAmount);
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void CreateSettingsFile() {
+        File txtFile = new File("res/data/settings.txt");
+        try {
+            txtFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PrintWriter pw = new PrintWriter(txtFile);
+            pw.write(String.valueOf(Game.ARROWKEYS));
+            pw.write(String.valueOf(Game.scrollDirection));
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void CreateAchivementsFile() {
+        File txtFile = new File("res/data/achievements.txt");
+        try {
+            txtFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PrintWriter pw = new PrintWriter(txtFile);
+            pw.write(String.valueOf(Game.boss1Killed));
+            pw.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void ReadFromSaveFile(int saveNumber) {
@@ -70,89 +123,25 @@ public class LoadSave {
         }
     }
 
-    public static void CreateInfoFile() {
-        File txtFile = new File("res/data/info.txt");
-        try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
-            pw.println(saveAmount);
-            pw.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void ReadFromInfoFile() {
-        File txtFile = new File("res/data/info.txt");
+    public static void ReadOnLoad() {
+        File txtFilea = new File("res/data/achievements.txt");
+        File txtFiles = new File("res/data/settings.txt");
+        File txtFilei = new File("res/data/info.txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
-            saveAmount = Integer.parseInt(br.readLine());
-            br.close();
+            BufferedReader bra = new BufferedReader(new FileReader(txtFilea));
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
+            Game.boss1Killed = Boolean.parseBoolean(bra.readLine());
+            bra.close();
 
-    public static void CreateSettingsFile() {
-        File txtFile = new File("res/data/settings.txt");
-        try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
-            pw.write(String.valueOf(Game.ARROWKEYS));
-            pw.write(String.valueOf(Game.scrollDirection));
-            pw.close();
+            BufferedReader brs = new BufferedReader(new FileReader(txtFiles));
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void ReadFromSettingsFile() {
-        File txtFile = new File("res/data/settings.txt");
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            Game.ARROWKEYS = Boolean.parseBoolean(brs.readLine());
+            Game.scrollDirection = Boolean.parseBoolean(brs.readLine());
+            brs.close();
 
-            Game.ARROWKEYS = Boolean.parseBoolean(br.readLine());
-            Game.scrollDirection = Boolean.parseBoolean(br.readLine());
-            br.close();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void CreateSaveFileAchievements() {
-        File txtFile = new File("res/data/achievements.txt");
-        try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
-            pw.write(String.valueOf(Game.boss1Killed));
-            pw.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-    public static void ReadFromSaveFileAchievements() {
-        File txtFile = new File("res/data/achievements.txt");
-        try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
-
-            Game.boss1Killed = Boolean.parseBoolean(br.readLine());
-            br.close();
+            BufferedReader bri = new BufferedReader(new FileReader(txtFilei));
+            saveAmount = Integer.parseInt(bri.readLine());
+            bri.close();
 
         } catch (Exception e) {
             throw new RuntimeException(e);
