@@ -15,5 +15,6 @@ public enum ID
     Trail, 
     MenuParticle,
     Boss2Enemy,
-    SpeedPU
+    SpeedPU,
+    KillPU
 }

@@ -11,7 +11,7 @@ import com.solace.main.objects.enemies.FastEnemy;
 import com.solace.main.objects.enemies.TargetEnemy;
 import com.solace.main.objects.enemies.bosses.Boss1Enemy;
 import com.solace.main.objects.enemies.bosses.Boss2Enemy;
-import com.solace.main.objects.powerups.SpeedPU;
+import com.solace.main.objects.powerups.PU;
 
 import java.util.Random;
 
@@ -40,7 +40,7 @@ public class Spawn
                     this.ScoreKeep = 0;
                     HUD.setLevel(this.hud.getLevel() + 1);
                     if (this.hud.getLevel() == 2) {
-                        this.handler.addObject(new SpeedPU((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.SpeedPU, handler));
+                        this.handler.addObject(new PU((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.KillPU, handler));
                         this.handler.addObject(new BasicEnemy2((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy2, this.handler, this.game));
                     }
                     if (this.hud.getLevel() == 3) {

@@ -42,7 +42,7 @@ public class Game extends Canvas implements Runnable
     
     public Game() {
         this.running = false;
-        gameState = STATE.Easy;
+        gameState = STATE.Menu;
         this.handler = new Handler(this);
         this.hud = new HUD(this, this.handler);
         this.menu = new Menu(this, this.handler, this.hud);
@@ -56,10 +56,8 @@ public class Game extends Canvas implements Runnable
         HUD.setHealth(100);
         HUD.setLevel(1);
         HUD.setScore(0);
-        this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this));
-        this.handler.clearEnemies();
+        //LoadSave.CreateSaveFile("Sex");
         this.r = new Random();
-        this.handler.addObject(new BasicEnemy((float)this.r.nextInt(590), (float)this.r.nextInt(430), ID.BasicEnemy, this.handler, this));
         LoadSave.ReadOnLoad();
         if (gameState == STATE.Menu || gameState == STATE.Death || gameState == STATE.Help || gameState == STATE.Difficulty) {
             for (int i = 0; i < 20; ++i) {
@@ -109,6 +107,20 @@ public class Game extends Canvas implements Runnable
             gameStateAsInt = 3;
         }
         return gameStateAsInt;
+    }
+
+    public static String getStateIntToString(int state) {
+        String states = "";
+        if (state == 1) {
+            states = "Easy";
+        }
+        if (state == 2) {
+            states = "Medium";
+        }
+        if (state == 3) {
+            states = "Hard";
+        }
+        return states;
     }
     
     public synchronized void start() {

@@ -4,6 +4,7 @@ import com.solace.main.Game;
 import com.solace.main.util.HUD;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.concurrent.locks.Lock;
 
 public class LoadSave {
@@ -27,7 +28,7 @@ public class LoadSave {
         return txtFile.exists();
     }
 
-    public static void CreateSaveFile() {
+    public static void CreateSaveFile(String name) {
         ReadOnLoad();
         File txtFile = new File("res/data/saves/savedata"+saveAmount+".txt");
         try {
@@ -37,8 +38,9 @@ public class LoadSave {
         }
         try {
             PrintWriter pw = new PrintWriter(txtFile);
+            pw.println(name);
             pw.println((int)HUD.HEALTH);
-            pw.println((int)HUD.getStaticScore());
+            pw.println(HUD.getStaticScore());
             pw.println(HUD.getStaticLevel());
             pw.print(Game.getCurrentGameStateToInt());
             pw.close();
@@ -76,8 +78,8 @@ public class LoadSave {
         }
         try {
             PrintWriter pw = new PrintWriter(txtFile);
-            pw.write(String.valueOf(Game.ARROWKEYS));
-            pw.write(String.valueOf(Game.scrollDirection));
+            pw.println(Game.ARROWKEYS);
+            pw.println(Game.scrollDirection);
             pw.close();
 
         } catch (FileNotFoundException e) {
@@ -107,6 +109,7 @@ public class LoadSave {
         try{
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
+            String name = br.readLine();
             health = Integer.parseInt(br.readLine());
             score = Integer.parseInt(br.readLine());
             level = Integer.parseInt(br.readLine());
@@ -117,6 +120,101 @@ public class LoadSave {
             HUD.HEALTH = health;
             HUD.setLevel(level);
             HUD.setScore(score);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static String ReadFromSaveFileName(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            String name = br.readLine();
+            health = Integer.parseInt(br.readLine());
+            score = Integer.parseInt(br.readLine());
+            level = Integer.parseInt(br.readLine());
+            state = Integer.parseInt(br.readLine());
+
+            br.close();
+            return name;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Float ReadFromSaveFileHealth(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            String name = br.readLine();
+            health = Integer.parseInt(br.readLine());
+            score = Integer.parseInt(br.readLine());
+            level = Integer.parseInt(br.readLine());
+            state = Integer.parseInt(br.readLine());
+
+            br.close();
+            return health;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Integer ReadFromSaveFileScore(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            String name = br.readLine();
+            health = Integer.parseInt(br.readLine());
+            score = Integer.parseInt(br.readLine());
+            level = Integer.parseInt(br.readLine());
+            state = Integer.parseInt(br.readLine());
+
+            br.close();
+            return score;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Integer ReadFromSaveFileLevel(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            String name = br.readLine();
+            health = Integer.parseInt(br.readLine());
+            score = Integer.parseInt(br.readLine());
+            level = Integer.parseInt(br.readLine());
+            state = Integer.parseInt(br.readLine());
+
+            br.close();
+            return level;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static Integer ReadFromSaveFileState(int saveNumber) {
+        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        try{
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            String name = br.readLine();
+            health = Integer.parseInt(br.readLine());
+            score = Integer.parseInt(br.readLine());
+            level = Integer.parseInt(br.readLine());
+            state = Integer.parseInt(br.readLine());
+
+            br.close();
+            return state;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

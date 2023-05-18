@@ -53,7 +53,6 @@ public class Player extends GameObject
         }
         if (this.powerUps != PowerUps.None) {
             if (puLength > 0) {
-                System.out.println(puLength);
                 if (this.powerUps == PowerUps.Speed) {
                     if (puLength < speed * 10) {
                         speed = 1 + (float) puLength / 10;
@@ -65,7 +64,6 @@ public class Player extends GameObject
         }
         if (puLength >= 1) {
             puLength--;
-            System.out.println("subtract");
         }
         this.collision();
     }
@@ -74,14 +72,16 @@ public class Player extends GameObject
         for (int i = 0; i < this.handler.object.size(); ++i) {
             final GameObject tempObject = this.handler.object.get(i);
             if ((tempObject.getId() == ID.BasicEnemy || tempObject.getId() == ID.FastEnemy || tempObject.getId() == ID.TargetEnemy) && this.getBounds().intersects(tempObject.getBounds())) {
-                if (Game.gameState == Game.STATE.Easy) {
+                if (powerUps != PowerUps.Kill) {
+                    if (Game.gameState == Game.STATE.Easy) {
                         --HUD.HEALTH;
-                }
-                else if (Game.gameState == Game.STATE.Medium) {
-                    HUD.HEALTH -= 2;
-                }
-                else if (Game.gameState == Game.STATE.Hard) {
-                    HUD.HEALTH -= 4;
+                    } else if (Game.gameState == Game.STATE.Medium) {
+                        HUD.HEALTH -= 2;
+                    } else if (Game.gameState == Game.STATE.Hard) {
+                        HUD.HEALTH -= 4;
+                    }
+                } else {
+                    handler.removeObject(tempObject);
                 }
             } else if (tempObject.getId() == ID.SpeedPU && this.getBounds().intersects(tempObject.getBounds())) {
                 if (Game.gameState == Game.STATE.Easy) {
@@ -100,6 +100,23 @@ public class Player extends GameObject
                     speed += .5;
                     puLength = 100;
                     this.powerUps = PowerUps.Speed;
+                    handler.removeObject(tempObject);
+                }
+            }
+            else if (tempObject.getId() == ID.KillPU && this.getBounds().intersects(tempObject.getBounds())) {
+                if (Game.gameState == Game.STATE.Easy) {
+                    puLength = 300;
+                    this.powerUps = PowerUps.Kill;
+                    handler.removeObject(tempObject);
+                }
+                else if (Game.gameState == Game.STATE.Medium) {
+                    puLength = 200;
+                    this.powerUps = PowerUps.Kill;
+                    handler.removeObject(tempObject);
+                }
+                else if (Game.gameState == Game.STATE.Hard) {
+                    puLength = 100;
+                    this.powerUps = PowerUps.Kill;
                     handler.removeObject(tempObject);
                 }
             }
