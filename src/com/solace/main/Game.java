@@ -32,6 +32,7 @@ public class Game extends Canvas implements Runnable
     private HUD hud;
     private Menu menu;
     private Spawn spawner;
+    public Window window;
     public static BufferedImage sprite_sheet;
     public static BufferedImage boss_1;
     public static boolean paused;
@@ -39,6 +40,7 @@ public class Game extends Canvas implements Runnable
     public static int gameStateAsInt;
     public static boolean boss1Killed;
     public static boolean scrollDirection = true;
+    public static boolean regen = false;
     
     public Game() {
         this.running = false;
@@ -48,7 +50,7 @@ public class Game extends Canvas implements Runnable
         this.menu = new Menu(this, this.handler, this.hud);
         this.addKeyListener(new KeyInput(this.handler, this));
         this.addMouseListener(this.menu);
-        new Window(640.0f, 480.0f, "Blob", this, false);
+        window = new Window(640.0f, 480.0f, "Blob", this, false);
         final BufferedImageLoader loader = new BufferedImageLoader();
         Game.sprite_sheet = loader.loadImage("/sprites.png");
         Game.boss_1 = loader.loadImage("/sprites.png");
@@ -56,7 +58,6 @@ public class Game extends Canvas implements Runnable
         HUD.setHealth(100);
         HUD.setLevel(1);
         HUD.setScore(0);
-        //LoadSave.CreateSaveFile("Sex");
         this.r = new Random();
         LoadSave.ReadOnLoad();
         if (gameState == STATE.Menu || gameState == STATE.Death || gameState == STATE.Help || gameState == STATE.Difficulty) {

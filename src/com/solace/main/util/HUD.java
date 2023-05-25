@@ -46,24 +46,24 @@ public class HUD
                     HUD.HEALTH = 100.0f;
                 }
         }
-        if (gameState == Game.STATE.Easy && this.timerh >= 100) {
-            if (HEALTH < 100) {
-                HUD.HEALTH += 2.0f;
-            }
-            this.timerh = 0;
-        }
-        else if (gameState == Game.STATE.Medium && this.timerh >= 150) {
-            if (HEALTH < 100) {
-                ++HUD.HEALTH;
-            }
-            this.timerh = 0;
+        if (Game.regen) {
+            if (gameState == Game.STATE.Easy && this.timerh >= 100) {
+                if (HEALTH < 100) {
+                    HUD.HEALTH += 2.0f;
+                }
+                this.timerh = 0;
+            } else if (gameState == Game.STATE.Medium && this.timerh >= 150) {
+                if (HEALTH < 100) {
+                    ++HUD.HEALTH;
+                }
+                this.timerh = 0;
 
-        }
-        else if (gameState == Game.STATE.Hard && this.timerh >= 200) {
-            if (HEALTH < 100) {
-                ++HUD.HEALTH;
+            } else if (gameState == Game.STATE.Hard && this.timerh >= 200) {
+                if (HEALTH < 100) {
+                    ++HUD.HEALTH;
+                }
+                this.timerh = 0;
             }
-            this.timerh = 0;
         }
         this.r = new Random();
         ++score;

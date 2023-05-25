@@ -16,9 +16,11 @@ import java.awt.image.BufferedImage;
 
 public class Window extends Canvas {
     private BufferedImage img;
+    static JTextField text = new JTextField(10);
     
     public Window(final float width, final float height, final String title, final Game game, Boolean hasInputText) {
         final JFrame frame = new JFrame(title);
+        JPanel board = new JPanel();
         frame.setPreferredSize(new Dimension((int)width, (int)height));
         frame.setMaximumSize(new Dimension((int)width + 100, (int)height + 50));
         frame.setMinimumSize(new Dimension((int)width - 10, (int)height));
@@ -40,17 +42,25 @@ public class Window extends Canvas {
         catch (SecurityException e3) {
             System.out.println("Security Exception");
         }
+        frame.add(board, BorderLayout.CENTER);
+        text.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                board.repaint();
+            }
+
+        });
         frame.setIconImage(logo.getImage());
         frame.setDefaultCloseOperation(3);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null);
-        if (hasInputText) {
-
-        } else {
-            frame.add(game);
-        }
+        frame.add(text);
+        frame.add(game);
         frame.pack();
         frame.setVisible(true);
         game.start();
+    }
+
+    public String getText() {
+        return text.getText();
     }
 }

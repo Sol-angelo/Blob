@@ -14,6 +14,7 @@ public class LoadSave {
     public static float health;
 
     public static int state;
+    public static boolean regen;
     public static int saveAmount;
 
     private static Game game;
@@ -114,12 +115,14 @@ public class LoadSave {
             score = Integer.parseInt(br.readLine());
             level = Integer.parseInt(br.readLine());
             state = Integer.parseInt(br.readLine());
+            regen = Boolean.parseBoolean(br.readLine());
 
             br.close();
 
             HUD.HEALTH = health;
-            HUD.setLevel(level);
             HUD.setScore(score);
+            HUD.setLevel(level);
+            Game.regen = regen;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
