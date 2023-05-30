@@ -5,6 +5,7 @@
 package com.solace.main.util;
 
 import com.solace.main.Game;
+import com.solace.main.util.enums.ID;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;

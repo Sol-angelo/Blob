@@ -6,6 +6,7 @@ package com.solace.main.util;
 
 import com.solace.main.Game;
 import com.solace.main.objects.Player;
+import com.solace.main.util.enums.ID;
 
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;

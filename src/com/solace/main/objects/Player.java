@@ -6,6 +6,8 @@ package com.solace.main.objects;
 
 import com.solace.main.Game;
 import com.solace.main.util.*;
+import com.solace.main.util.enums.ID;
+import com.solace.main.util.enums.PowerUps;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;

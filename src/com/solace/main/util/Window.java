@@ -24,8 +24,8 @@ public class Window extends Canvas {
         frame.setPreferredSize(new Dimension((int)width, (int)height));
         frame.setMaximumSize(new Dimension((int)width + 100, (int)height + 50));
         frame.setMinimumSize(new Dimension((int)width - 10, (int)height));
-        final ImageIcon logo = new ImageIcon(this.getClass().getClassLoader().getResource("icon.png"));
-        final InputStream is = this.getClass().getResourceAsStream("/icon.png");
+        final ImageIcon logo = new ImageIcon(this.getClass().getClassLoader().getResource("assets/textures/icon.png"));
+        final InputStream is = this.getClass().getResourceAsStream("/assets/textures/icon.png");
         try {
             this.img = ImageIO.read(is);
         }

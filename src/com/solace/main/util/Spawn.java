@@ -12,6 +12,7 @@ import com.solace.main.objects.enemies.TargetEnemy;
 import com.solace.main.objects.enemies.bosses.Boss1Enemy;
 import com.solace.main.objects.enemies.bosses.Boss2Enemy;
 import com.solace.main.objects.powerups.PU;
+import com.solace.main.util.enums.ID;
 
 import java.util.Random;
 

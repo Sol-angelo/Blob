@@ -1,4 +1,4 @@
-package com.solace.main.util;
+package com.solace.main.util.enums;
 
 public enum Selected {
     Game1,

@@ -4,7 +4,7 @@
 
 package com.solace.main.util;
 
-import com.solace.main.util.ID;
+import com.solace.main.util.enums.ID;
 
 import java.awt.Rectangle;
 import java.awt.Graphics;

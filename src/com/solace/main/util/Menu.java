@@ -13,15 +13,15 @@ import com.solace.main.objects.enemies.FastEnemy;
 import com.solace.main.objects.enemies.TargetEnemy;
 import com.solace.main.objects.enemies.bosses.Boss1Enemy;
 import com.solace.main.objects.enemies.bosses.Boss2Enemy;
+import com.solace.main.util.enums.ID;
+import com.solace.main.util.enums.Selected;
+import com.solace.main.util.enums.SelectedCreation;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Random;
 import java.awt.event.MouseAdapter;
 

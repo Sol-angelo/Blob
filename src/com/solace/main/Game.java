@@ -5,9 +5,8 @@
 package com.solace.main;
 
 import com.solace.main.objects.MenuParticle;
-import com.solace.main.objects.Player;
-import com.solace.main.objects.enemies.BasicEnemy;
 import com.solace.main.util.*;
+import com.solace.main.util.enums.ID;
 
 import javax.sound.sampled.*;
 import java.awt.Graphics;
@@ -52,8 +51,8 @@ public class Game extends Canvas implements Runnable
         this.addMouseListener(this.menu);
         window = new Window(640.0f, 480.0f, "Blob", this, false);
         final BufferedImageLoader loader = new BufferedImageLoader();
-        Game.sprite_sheet = loader.loadImage("/sprites.png");
-        Game.boss_1 = loader.loadImage("/sprites.png");
+        Game.sprite_sheet = loader.loadImage("/assets/textures/sprites.png");
+        Game.boss_1 = loader.loadImage("/assets/textures/sprites.png");
         this.spawner = new Spawn(this.handler, this.hud, this);
         HUD.setHealth(100);
         HUD.setLevel(1);

@@ -8,7 +8,7 @@ import com.solace.main.*;
 import com.solace.main.util.GameObject;
 import com.solace.main.util.TrailS;
 import com.solace.main.util.Handler;
-import com.solace.main.util.ID;
+import com.solace.main.util.enums.ID;
 
 import java.awt.Graphics;
 import java.awt.Color;
