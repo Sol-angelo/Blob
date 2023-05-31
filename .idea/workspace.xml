@@ -6,7 +6,19 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="fixes" />
+    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="save overriding and">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/info.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/data/info.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata0.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata1.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata2.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata3.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata6.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -50,6 +62,8 @@
       <recent name="$PROJECT_DIR$/res/music" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/assets/textures" />
+      <recent name="$PROJECT_DIR$/res/assets" />
       <recent name="$PROJECT_DIR$/res/data" />
       <recent name="$PROJECT_DIR$/res" />
     </key>
@@ -122,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685012749202</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="cleaning">
+      <created>1685489489116</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1685489489116</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +163,17 @@
     <MESSAGE value="kill powe rup + new save load system" />
     <MESSAGE value="fixed game select menu" />
     <MESSAGE value="fixes" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixes" />
+    <MESSAGE value="cleaning" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleaning" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.io.FileNotFoundException" package="java.io" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

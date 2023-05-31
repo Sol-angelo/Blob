@@ -6,6 +6,7 @@ package com.solace.main.util;
 
 import com.solace.main.Game;
 import com.solace.main.util.enums.ID;
+import com.solace.main.util.enums.Selected;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
@@ -33,69 +34,83 @@ public class KeyInput extends KeyAdapter
     @Override
     public void keyPressed(final KeyEvent e) {
         final float key = (float) e.getKeyCode();
-        if (!Game.ARROWKEYS) {
-            for (int i = 0; i < this.handler.object.size(); ++i) {
-                final GameObject tempObject = this.handler.object.get(i);
-                if (tempObject.getId() == ID.Player) {
-                    if (key == KeyEvent.VK_W) {
-                        tempObject.setVelY(-5.0f);
-                        this.keyDown[0] = true;
-                    }
-                    if (key == KeyEvent.VK_S) {
-                        tempObject.setVelY(5.0f);
-                        this.keyDown[1] = true;
-                    }
-                    if (key == KeyEvent.VK_D) {
-                        tempObject.setVelX(5.0f);
-                        this.keyDown[2] = true;
-                    }
-                    if (key == KeyEvent.VK_A) {
-                        tempObject.setVelX(-5.0f);
-                        this.keyDown[3] = true;
+        if (Game.gameState == Game.STATE.SelectGame) {
+            if (Menu.selected != Selected.None) {
+                if (key == KeyEvent.VK_DELETE || key == KeyEvent.VK_B) {
+                    if (Menu.selected == Selected.Game1) {
+                        LoadSave.DeleteFile("saves/savedata"+(Menu.page-1));
+                    } else if (Menu.selected == Selected.Game2) {
+                        LoadSave.DeleteFile("saves/savedata"+Menu.page);
+                    } else if (Menu.selected == Selected.Game3) {
+                        LoadSave.DeleteFile("saves/savedata"+(Menu.page+1));
                     }
                 }
             }
-        } else if (Game.ARROWKEYS) {
-            for (int i = 0; i < this.handler.object.size(); ++i) {
-                final GameObject tempObject = this.handler.object.get(i);
-                if (tempObject.getId() == ID.Player) {
-                    if (key == KeyEvent.VK_UP) {
-                        tempObject.setVelY(-5.0f);
-                        this.keyDown[0] = true;
+        } else {
+            if (!Game.ARROWKEYS) {
+                for (int i = 0; i < this.handler.object.size(); ++i) {
+                    final GameObject tempObject = this.handler.object.get(i);
+                    if (tempObject.getId() == ID.Player) {
+                        if (key == KeyEvent.VK_W) {
+                            tempObject.setVelY(-5.0f);
+                            this.keyDown[0] = true;
+                        }
+                        if (key == KeyEvent.VK_S) {
+                            tempObject.setVelY(5.0f);
+                            this.keyDown[1] = true;
+                        }
+                        if (key == KeyEvent.VK_D) {
+                            tempObject.setVelX(5.0f);
+                            this.keyDown[2] = true;
+                        }
+                        if (key == KeyEvent.VK_A) {
+                            tempObject.setVelX(-5.0f);
+                            this.keyDown[3] = true;
+                        }
                     }
-                    if (key == KeyEvent.VK_DOWN) {
-                        tempObject.setVelY(5.0f);
-                        this.keyDown[1] = true;
-                    }
-                    if (key == KeyEvent.VK_RIGHT) {
-                        tempObject.setVelX(5.0f);
-                        this.keyDown[2] = true;
-                    }
-                    if (key == KeyEvent.VK_LEFT) {
-                        tempObject.setVelX(-5.0f);
-                        this.keyDown[3] = true;
+                }
+            } else {
+                for (int i = 0; i < this.handler.object.size(); ++i) {
+                    final GameObject tempObject = this.handler.object.get(i);
+                    if (tempObject.getId() == ID.Player) {
+                        if (key == KeyEvent.VK_UP) {
+                            tempObject.setVelY(-5.0f);
+                            this.keyDown[0] = true;
+                        }
+                        if (key == KeyEvent.VK_DOWN) {
+                            tempObject.setVelY(5.0f);
+                            this.keyDown[1] = true;
+                        }
+                        if (key == KeyEvent.VK_RIGHT) {
+                            tempObject.setVelX(5.0f);
+                            this.keyDown[2] = true;
+                        }
+                        if (key == KeyEvent.VK_LEFT) {
+                            tempObject.setVelX(-5.0f);
+                            this.keyDown[3] = true;
+                        }
                     }
                 }
             }
-        }
-        if (key == KeyEvent.VK_ESCAPE) {
-            if (Game.gameState == Game.STATE.Difficulty || Game.gameState == Game.STATE.Death || Game.gameState == Game.STATE.Menu || Game.gameState == Game.STATE.Help || Game.gameState == Game.STATE.Settings || Game.gameState == Game.STATE.SelectGame || Game.gameState == Game.STATE.GameCreation || Game.gameState == Game.STATE.Achievements) {
-                System.exit(2);
-            } if (Game.gameState == Game.STATE.SaveloadIG || Game.gameState == Game.STATE.Save1 || Game.gameState == Game.STATE.Save2 || Game.gameState == Game.STATE.Save3) {
-                if (Game.getCurrentGameStateToInt() == 1) {
-                    Game.gameState = Game.STATE.Easy;
+            if (key == KeyEvent.VK_ESCAPE) {
+                if (Game.gameState == Game.STATE.Difficulty || Game.gameState == Game.STATE.Death || Game.gameState == Game.STATE.Menu || Game.gameState == Game.STATE.Help || Game.gameState == Game.STATE.Settings || Game.gameState == Game.STATE.SelectGame || Game.gameState == Game.STATE.GameCreation || Game.gameState == Game.STATE.Achievements) {
+                    System.exit(2);
                 }
-                if (Game.getCurrentGameStateToInt() == 2) {
-                    Game.gameState = Game.STATE.Medium;
+                if (Game.gameState == Game.STATE.SaveloadIG || Game.gameState == Game.STATE.Save1 || Game.gameState == Game.STATE.Save2 || Game.gameState == Game.STATE.Save3) {
+                    if (Game.getCurrentGameStateToInt() == 1) {
+                        Game.gameState = Game.STATE.Easy;
+                    }
+                    if (Game.getCurrentGameStateToInt() == 2) {
+                        Game.gameState = Game.STATE.Medium;
+                    }
+                    if (Game.getCurrentGameStateToInt() == 3) {
+                        Game.gameState = Game.STATE.Hard;
+                    }
+                } else if (Game.paused) {
+                    Game.paused = false;
+                } else if (!Game.paused) {
+                    Game.paused = true;
                 }
-                if (Game.getCurrentGameStateToInt() == 3) {
-                    Game.gameState = Game.STATE.Hard;
-                }
-            }
-            else if (Game.paused) {
-                Game.paused = false;
-            } else if (!Game.paused) {
-                Game.paused = true;
             }
         }
     }

@@ -32,9 +32,9 @@ public class Menu extends MouseAdapter
     private Random r;
     private HUD hud;
     public int scrollAmount;
-    public int page;
-    public int pageAmount;
-    public Selected selected;
+    public static int page;
+    public static int pageAmount;
+    public static Selected selected;
     public SelectedCreation selectedCreation;
     public String currentSaveName;
     public boolean clicked = false;
@@ -46,21 +46,11 @@ public class Menu extends MouseAdapter
         this.hud = hud;
         LoadSave.ReadOnLoad();
         selected = Selected.None;
-        if (LoadSave.saveAmount % 3 == 0) {
-            pageAmount = (LoadSave.saveAmount + 1) / 3;
-        } else {
-            if (LoadSave.CheckForSaveFile(12)) {
-                pageAmount = 5;
-            } else if (LoadSave.CheckForSaveFile(9)) {
-                pageAmount = 4;
-            } else if (LoadSave.CheckForSaveFile(6)) {
-                pageAmount = 3;
-            } else if (LoadSave.CheckForSaveFile(3)){
-                pageAmount = 2;
-            } else if (LoadSave.CheckForSaveFile(0)) {
-                pageAmount = 1;
-            } else {
-                pageAmount = 0;
+        for (int i = 0; i <= LoadSave.saveAmount; i++) {
+            if (LoadSave.CheckForSaveFile(i)) {
+                if (i % 3 == 0) {
+                    Menu.pageAmount = i / 3 + 1;
+                }
             }
         }
     }
@@ -98,10 +88,9 @@ public class Menu extends MouseAdapter
     }
 
     @Override
-    public void mouseReleased(final MouseEvent e) {
+    public void mouseClicked(final MouseEvent e) {
         final int mx = e.getX();
         final int my = e.getY();
-        if (!clicked) {
             if (Game.gameState == Game.STATE.Menu) {
                 if (this.mouseOver(mx, my, 210, 150, 200, 64)) {
                     clicked = true;
@@ -402,6 +391,8 @@ public class Menu extends MouseAdapter
                         Game.paused = false;
                     }
                     if (this.mouseOver(mx, my, 210, 250, 200, 64)) {
+                        LoadSave.OverwriteSaveFile("Game", Game.inGameSaveInt);
+                        Game.inGameSaveInt = 0;
                         clicked = true;
                         this.handler.clearAll();
                         Game.gameState = Game.STATE.Menu;
@@ -411,11 +402,10 @@ public class Menu extends MouseAdapter
                         Game.paused = false;
                     }
                     if (this.mouseOver(mx, my, 210, 350, 200, 64)) {
+                        LoadSave.OverwriteSaveFile("Game", Game.inGameSaveInt);
+                        Game.inGameSaveInt = 0;
                         clicked = true;
-                        Game.gameState = Game.STATE.SaveloadIG;
-                        System.out.println("went to saveloadig");
-                        //LoadSave.CreateSaveFile();
-                        //System.exit(2);
+                        System.exit(2);
                     }
                 }
             }
@@ -620,7 +610,7 @@ public class Menu extends MouseAdapter
                         }
                     }
                 }
-                if (LoadSave.saveAmount >= 1 + (page - 1) * 3) {
+                if (LoadSave.CheckForSaveFile(1+(page-1)*3)) {
                     if (mouseOver(mx, my, 50, 170, 540, 100)) {
                         selected = Selected.Game2;
                         clicked = true;
@@ -822,7 +812,7 @@ public class Menu extends MouseAdapter
                         }
                     }
                 }
-                if (LoadSave.saveAmount >= 2 + (page - 1) * 3) {
+                if (LoadSave.CheckForSaveFile(2+(page-1)*3)) {
                     if (mouseOver(mx, my, 50, 290, 540, 100)) {
                         clicked = true;
                         selected = Selected.Game3;
@@ -1045,12 +1035,12 @@ public class Menu extends MouseAdapter
                 }
                 if (mouseOver(mx, my, 0, 0, 640, 480)) {
                     if (!mouseOver(mx, my, 50, 50, 540, 100)) {
-                        if (LoadSave.saveAmount >= 2) {
+                        if (LoadSave.CheckForSaveFile(2+(page-1)*3)) {
                             if (!mouseOver(mx, my, 50, 290, 540, 100) && !mouseOver(mx, my, 50, 170, 540, 100)) {
                                 selected = Selected.None;
                                 clicked = true;
                             }
-                        } else if (LoadSave.saveAmount >= 1) {
+                        } else if (LoadSave.CheckForSaveFile(1+(page-1)*3)) {
                             if (!mouseOver(mx, my, 50, 170, 540, 100)) {
                                 selected = Selected.None;
                                 clicked = true;
@@ -1067,11 +1057,6 @@ public class Menu extends MouseAdapter
                 }
             }
             if (Game.gameState == Game.STATE.GameCreation) {
-                currentSaveName = game.window.getText();
-                if (currentSaveName == null) {
-
-                }
-
                 if (mouseOver(mx, my, 50, 200, 540 / 3, 64)) {
                     selectedCreation = SelectedCreation.Easy;
                     clicked = true;
@@ -1098,7 +1083,7 @@ public class Menu extends MouseAdapter
                         this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
-                        LoadSave.CreateSaveFile("Game");
+                        Game.inGameSaveInt = LoadSave.CreateSaveFile("Game");
                     } else if (selectedCreation == SelectedCreation.Medium) {
                         selectedCreation = SelectedCreation.None;
                         Game.gameState = Game.STATE.Medium;
@@ -1106,7 +1091,7 @@ public class Menu extends MouseAdapter
                         this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
-                        LoadSave.CreateSaveFile("Game");
+                        Game.inGameSaveInt = LoadSave.CreateSaveFile("Game");
                     } else if (selectedCreation == SelectedCreation.Hard) {
                         selectedCreation = SelectedCreation.None;
                         Game.gameState = Game.STATE.Hard;
@@ -1114,7 +1099,7 @@ public class Menu extends MouseAdapter
                         this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
-                        LoadSave.CreateSaveFile("Game");
+                        Game.inGameSaveInt = LoadSave.CreateSaveFile("Game");
                     } else {
                         selectedCreation = SelectedCreation.None;
                         Game.gameState = Game.STATE.Easy;
@@ -1122,7 +1107,7 @@ public class Menu extends MouseAdapter
                         this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
-                        LoadSave.CreateSaveFile("Game");
+                        Game.inGameSaveInt = LoadSave.CreateSaveFile("Game");
                     }
                 }
 
@@ -1168,12 +1153,11 @@ public class Menu extends MouseAdapter
                     System.out.println("saved 2");
                 }
             }*/
-            }
         }
     }
     
     @Override
-    public void mouseClicked(final MouseEvent e) {
+    public void mouseReleased(final MouseEvent e) {
         clicked = false;
     }
     
@@ -1328,32 +1312,36 @@ public class Menu extends MouseAdapter
                 g.fillRect(620, length*(page-1), 20, length);
             }
             if (LoadSave.saveAmount >= 1+(page-1)*3) {
-                g.setColor(new Color(17, 17, 17, 200));
-                g.fillRect(50, 170, 540, 100);
-                g.setColor(Color.white);
-                g.drawRect(50, 170, 540, 100);
-                g.setFont(fnt2);
-                int n = (page-1) * 3 + 1;
-                g.drawString(LoadSave.ReadFromSaveFileName(n), 70, 210);
-                g.setFont(fnt4);
-                g.drawString("Level: "+LoadSave.ReadFromSaveFileLevel(n), 70, 230);
-                g.drawString("Score: "+LoadSave.ReadFromSaveFileScore(n), 70, 245);
-                g.drawString("Difficulty: "+Game.getStateIntToString(LoadSave.ReadFromSaveFileState(n)), 70, 260);
-                g.drawRect(450, 190, 64, 60);
+                if (LoadSave.CheckForSaveFile(1+(page-1)*3)) {
+                    g.setColor(new Color(17, 17, 17, 200));
+                    g.fillRect(50, 170, 540, 100);
+                    g.setColor(Color.white);
+                    g.drawRect(50, 170, 540, 100);
+                    g.setFont(fnt2);
+                    int n = (page - 1) * 3 + 1;
+                    g.drawString(LoadSave.ReadFromSaveFileName(n), 70, 210);
+                    g.setFont(fnt4);
+                    g.drawString("Level: " + LoadSave.ReadFromSaveFileLevel(n), 70, 230);
+                    g.drawString("Score: " + LoadSave.ReadFromSaveFileScore(n), 70, 245);
+                    g.drawString("Difficulty: " + Game.getStateIntToString(LoadSave.ReadFromSaveFileState(n)), 70, 260);
+                    g.drawRect(450, 190, 64, 60);
+                }
             }
             if (LoadSave.saveAmount >= 2+(page-1)*3) {
-                g.setColor(new Color(17, 17, 17, 200));
-                g.fillRect(50, 290, 540, 100);
-                g.setColor(Color.white);
-                g.drawRect(50, 290, 540, 100);
-                g.setFont(fnt2);
-                int m = (page-1) * 3 + 2;
-                g.drawString(LoadSave.ReadFromSaveFileName(m), 70, 90+ 240);
-                g.setFont(fnt4);
-                g.drawString("Level: "+LoadSave.ReadFromSaveFileLevel(m), 70, 110+ 240);
-                g.drawString("Score: "+LoadSave.ReadFromSaveFileScore(m), 70, 125+ 240);
-                g.drawString("Difficulty: "+Game.getStateIntToString(LoadSave.ReadFromSaveFileState(m)), 70, 140+ 240);
-                g.drawRect(450, 310, 64, 60);
+                if (LoadSave.CheckForSaveFile(2 + (page - 1) * 3)) {
+                    g.setColor(new Color(17, 17, 17, 200));
+                    g.fillRect(50, 290, 540, 100);
+                    g.setColor(Color.white);
+                    g.drawRect(50, 290, 540, 100);
+                    g.setFont(fnt2);
+                    int m = (page - 1) * 3 + 2;
+                    g.drawString(LoadSave.ReadFromSaveFileName(m), 70, 90 + 240);
+                    g.setFont(fnt4);
+                    g.drawString("Level: " + LoadSave.ReadFromSaveFileLevel(m), 70, 110 + 240);
+                    g.drawString("Score: " + LoadSave.ReadFromSaveFileScore(m), 70, 125 + 240);
+                    g.drawString("Difficulty: " + Game.getStateIntToString(LoadSave.ReadFromSaveFileState(m)), 70, 140 + 240);
+                    g.drawRect(450, 310, 64, 60);
+                }
             }
         }
         else if (Game.gameState == Game.STATE.GameCreation) {

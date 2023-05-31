@@ -29,9 +29,16 @@ public class LoadSave {
         return txtFile.exists();
     }
 
-    public static void CreateSaveFile(String name) {
+    public static int CreateSaveFile(String name) {
         ReadOnLoad();
-        File txtFile = new File("res/data/saves/savedata"+saveAmount+".txt");
+        int number = 0;
+        for (int i = 0; i <= saveAmount+1; i++) {
+            if (!CheckForSaveFile(i)) {
+                number = i;
+                break;
+            }
+        }
+        File txtFile = new File("res/data/saves/savedata"+number+".txt");
         try {
             txtFile.createNewFile();
         } catch (IOException e) {
@@ -43,10 +50,34 @@ public class LoadSave {
             pw.println((int)HUD.HEALTH);
             pw.println(HUD.getStaticScore());
             pw.println(HUD.getStaticLevel());
-            pw.print(Game.getCurrentGameStateToInt());
+            pw.println(Game.getCurrentGameStateToInt());
+            pw.println(Game.regen);
             pw.close();
             saveAmount++;
             CreateInfoFile();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return number;
+    }
+
+    public static void OverwriteSaveFile(String name, int number) {
+        File txtFile = new File("res/data/saves/savedata"+number+".txt");
+        try {
+            txtFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            PrintWriter pw = new PrintWriter(txtFile);
+            pw.println(name);
+            pw.println((int)HUD.HEALTH);
+            pw.println(HUD.getStaticScore());
+            pw.println(HUD.getStaticLevel());
+            pw.println(Game.getCurrentGameStateToInt());
+            pw.println(Game.regen);
+            pw.close();
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -246,6 +277,13 @@ public class LoadSave {
 
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public static void DeleteFile(String name) {
+        File txtFile = new File("res/data/"+name+".txt");
+        if (txtFile.exists()) {
+            txtFile.delete();
         }
     }
 }

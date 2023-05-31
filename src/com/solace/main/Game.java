@@ -40,6 +40,7 @@ public class Game extends Canvas implements Runnable
     public static boolean boss1Killed;
     public static boolean scrollDirection = true;
     public static boolean regen = false;
+    public static int inGameSaveInt;
     
     public Game() {
         this.running = false;
