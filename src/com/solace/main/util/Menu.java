@@ -32,8 +32,8 @@ public class Menu extends MouseAdapter
     private Random r;
     private HUD hud;
     public int scrollAmount;
-    public static int page;
-    public static int pageAmount;
+    public static int page = 1;
+    public static int pageAmount = 1;
     public static Selected selected;
     public SelectedCreation selectedCreation;
     public String currentSaveName;
@@ -46,13 +46,6 @@ public class Menu extends MouseAdapter
         this.hud = hud;
         LoadSave.ReadOnLoad();
         selected = Selected.None;
-        for (int i = 0; i <= LoadSave.saveAmount; i++) {
-            if (LoadSave.CheckForSaveFile(i)) {
-                if (i % 3 == 0) {
-                    Menu.pageAmount = i / 3 + 1;
-                }
-            }
-        }
     }
 
     @Override
@@ -1166,6 +1159,13 @@ public class Menu extends MouseAdapter
     }
     
     public void tick() {
+        for (int i = 0; i <= LoadSave.saveAmount; i++) {
+            if (LoadSave.CheckForSaveFile(i)) {
+                if (i % 3 == 0) {
+                    Menu.pageAmount = i / 3 + 1;
+                }
+            }
+        }
     }
     
     public void render(final Graphics g) {
@@ -1281,13 +1281,10 @@ public class Menu extends MouseAdapter
         else if (Game.gameState == Game.STATE.SelectGame) {
             g.setColor(new Color(17, 17, 17, 100));
             g.fillRect(0, 0, 640, 480);
-            g.setColor(new Color(17, 17, 17, 200));
-            g.fillRect(50, 50, 540, 100);
             g.setColor(Color.white);
             g.drawRect(100, 400, 440, 40);
             g.setFont(fnt2);
             g.drawString("Create New Game", 195, 430);
-            g.drawRect(50, 50, 540, 100);
             if (selected == Selected.Game1) {
                 g.drawRect(49, 49, 542, 102);
             } else if (selected == Selected.Game2) {
@@ -1295,21 +1292,28 @@ public class Menu extends MouseAdapter
             } else if (selected == Selected.Game3) {
                 g.drawRect(49, 289, 542, 102);
             }
-            g.drawRect(450, 70, 64, 60);
-            g.setFont(fnt2);
-            int i = (page-1) * 3;
-            g.drawString(LoadSave.ReadFromSaveFileName(i), 70, 90);
-            g.setFont(fnt4);
-            g.drawString("Level: "+LoadSave.ReadFromSaveFileLevel(i), 70, 110);
-            g.drawString("Score: "+LoadSave.ReadFromSaveFileScore(i), 70, 125);
-            g.drawString("Difficulty: "+Game.getStateIntToString(LoadSave.ReadFromSaveFileState(i)), 70, 140);
-
             int length = 480 / pageAmount;
             for (int o = 0; o < pageAmount; o++) {
                 g.setColor(new Color(42, 42, 42, 255));
                 g.fillRect(620, 0, 20, 480);
                 g.setColor(new Color(70, 70, 70, 255));
                 g.fillRect(620, length*(page-1), 20, length);
+            }
+            if (LoadSave.saveAmount >= (page-1)*3) {
+                if (LoadSave.CheckForSaveFile((page - 1) * 3)) {
+                    g.setColor(new Color(17, 17, 17, 200));
+                    g.fillRect(50, 50, 540, 100);
+                    g.setColor(Color.white);
+                    g.drawRect(450, 70, 64, 60);
+                    g.drawRect(50, 50, 540, 100);
+                    g.setFont(fnt2);
+                    int i = (page - 1) * 3;
+                    g.drawString(LoadSave.ReadFromSaveFileName(i), 70, 90);
+                    g.setFont(fnt4);
+                    g.drawString("Level: " + LoadSave.ReadFromSaveFileLevel(i), 70, 110);
+                    g.drawString("Score: " + LoadSave.ReadFromSaveFileScore(i), 70, 125);
+                    g.drawString("Difficulty: " + Game.getStateIntToString(LoadSave.ReadFromSaveFileState(i)), 70, 140);
+                }
             }
             if (LoadSave.saveAmount >= 1+(page-1)*3) {
                 if (LoadSave.CheckForSaveFile(1+(page-1)*3)) {
@@ -1328,7 +1332,7 @@ public class Menu extends MouseAdapter
                 }
             }
             if (LoadSave.saveAmount >= 2+(page-1)*3) {
-                if (LoadSave.CheckForSaveFile(2 + (page - 1) * 3)) {
+                if (LoadSave.CheckForSaveFile((page - 1) * 3 + 2)) {
                     g.setColor(new Color(17, 17, 17, 200));
                     g.fillRect(50, 290, 540, 100);
                     g.setColor(Color.white);

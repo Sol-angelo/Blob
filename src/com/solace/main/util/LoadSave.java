@@ -32,9 +32,10 @@ public class LoadSave {
     public static int CreateSaveFile(String name) {
         ReadOnLoad();
         int number = 0;
-        for (int i = 0; i <= saveAmount+1; i++) {
+        for (int i = 0; i <= saveAmount; i++) {
             if (!CheckForSaveFile(i)) {
                 number = i;
+                saveAmount = i+1;
                 break;
             }
         }
@@ -53,7 +54,6 @@ public class LoadSave {
             pw.println(Game.getCurrentGameStateToInt());
             pw.println(Game.regen);
             pw.close();
-            saveAmount++;
             CreateInfoFile();
 
         } catch (FileNotFoundException e) {

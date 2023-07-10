@@ -38,11 +38,38 @@ public class KeyInput extends KeyAdapter
             if (Menu.selected != Selected.None) {
                 if (key == KeyEvent.VK_DELETE || key == KeyEvent.VK_B) {
                     if (Menu.selected == Selected.Game1) {
-                        LoadSave.DeleteFile("saves/savedata"+(Menu.page-1));
+                        if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3+1) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3 + 2))) {
+                            if (Menu.page != 1) {
+                                Menu.page--;
+                                Menu.pageAmount--;
+                            } else {
+                                Game.gameState = Game.STATE.GameCreation;
+                            }
+                        }
+                        Menu.selected = Selected.None;
+                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3));
                     } else if (Menu.selected == Selected.Game2) {
-                        LoadSave.DeleteFile("saves/savedata"+Menu.page);
+                        if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3 + 2))) {
+                            if (Menu.page != 1) {
+                                Menu.page--;
+                                Menu.pageAmount--;
+                            } else {
+                                Game.gameState = Game.STATE.GameCreation;
+                            }
+                        }
+                        Menu.selected = Selected.None;
+                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3 + 1));
                     } else if (Menu.selected == Selected.Game3) {
-                        LoadSave.DeleteFile("saves/savedata"+(Menu.page+1));
+                        if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3+1) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3))) {
+                            if (Menu.page != 1) {
+                                Menu.page--;
+                                Menu.pageAmount--;
+                            } else {
+                                Game.gameState = Game.STATE.GameCreation;
+                            }
+                        }
+                        Menu.selected = Selected.None;
+                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3 + 2));
                     }
                 }
             }
