@@ -2,9 +2,11 @@ package com.solace.main.util;
 
 import com.solace.main.Game;
 import com.solace.main.util.HUD;
+import com.sun.tools.javac.Main;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 
 public class LoadSave {
@@ -39,14 +41,9 @@ public class LoadSave {
                 break;
             }
         }
-        File txtFile = new File("res/data/saves/savedata"+number+".txt");
         try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
+            FileOutputStream outputStream = new FileOutputStream("res/data/saves/savedata"+number+".txt");
+            PrintWriter pw = new PrintWriter(outputStream);
             pw.println(name);
             pw.println((int)HUD.HEALTH);
             pw.println(HUD.getStaticScore());
@@ -55,7 +52,6 @@ public class LoadSave {
             pw.println(Game.regen);
             pw.close();
             CreateInfoFile();
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -63,14 +59,9 @@ public class LoadSave {
     }
 
     public static void OverwriteSaveFile(String name, int number) {
-        File txtFile = new File("res/data/saves/savedata"+number+".txt");
         try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
+            FileOutputStream outputStream = new FileOutputStream("res/data/saves/savedata"+number+".txt");
+            PrintWriter pw = new PrintWriter(outputStream);
             pw.println(name);
             pw.println((int)HUD.HEALTH);
             pw.println(HUD.getStaticScore());
@@ -85,14 +76,9 @@ public class LoadSave {
     }
 
     public static void CreateInfoFile() {
-        File txtFile = new File("res/data/info.txt");
         try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
+            FileOutputStream outputStream = new FileOutputStream("res/data/info.txt");
+            PrintWriter pw = new PrintWriter(outputStream);
             pw.println(saveAmount);
             pw.close();
 
@@ -102,14 +88,9 @@ public class LoadSave {
     }
 
     public static void CreateSettingsFile() {
-        File txtFile = new File("res/data/settings.txt");
         try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
+            FileOutputStream outputStream = new FileOutputStream("res/data/settings.txt");
+            PrintWriter pw = new PrintWriter(outputStream);
             pw.println(Game.ARROWKEYS);
             pw.println(Game.scrollDirection);
             pw.close();
@@ -120,14 +101,9 @@ public class LoadSave {
     }
 
     public static void CreateAchievementsFile() {
-        File txtFile = new File("res/data/achievements.txt");
         try {
-            txtFile.createNewFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            PrintWriter pw = new PrintWriter(txtFile);
+            FileOutputStream outputStream = new FileOutputStream("res/data/achievements.txt");
+            PrintWriter pw = new PrintWriter(outputStream);
             pw.write(String.valueOf(Game.boss1Killed));
             pw.close();
 
@@ -137,9 +113,9 @@ public class LoadSave {
     }
 
     public static void ReadFromSaveFile(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
 
             String name = br.readLine();
             health = Integer.parseInt(br.readLine());
@@ -161,34 +137,25 @@ public class LoadSave {
     }
 
     public static String ReadFromSaveFileName(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
-
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
             String name = br.readLine();
-            health = Integer.parseInt(br.readLine());
-            score = Integer.parseInt(br.readLine());
-            level = Integer.parseInt(br.readLine());
-            state = Integer.parseInt(br.readLine());
-
             br.close();
             return name;
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public static Float ReadFromSaveFileHealth(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            assert txtFile != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
 
-            String name = br.readLine();
+            br.readLine();
             health = Integer.parseInt(br.readLine());
-            score = Integer.parseInt(br.readLine());
-            level = Integer.parseInt(br.readLine());
-            state = Integer.parseInt(br.readLine());
 
             br.close();
             return health;
@@ -199,15 +166,14 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileScore(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            assert txtFile != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
 
-            String name = br.readLine();
-            health = Integer.parseInt(br.readLine());
+            br.readLine();
+            br.readLine();
             score = Integer.parseInt(br.readLine());
-            level = Integer.parseInt(br.readLine());
-            state = Integer.parseInt(br.readLine());
 
             br.close();
             return score;
@@ -218,15 +184,15 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileLevel(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            assert txtFile != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
 
-            String name = br.readLine();
-            health = Integer.parseInt(br.readLine());
-            score = Integer.parseInt(br.readLine());
+            br.readLine();
+            br.readLine();
+            br.readLine();
             level = Integer.parseInt(br.readLine());
-            state = Integer.parseInt(br.readLine());
 
             br.close();
             return level;
@@ -237,14 +203,15 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileState(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
         try{
-            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            assert txtFile != null;
+            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
 
-            String name = br.readLine();
-            health = Integer.parseInt(br.readLine());
-            score = Integer.parseInt(br.readLine());
-            level = Integer.parseInt(br.readLine());
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
             state = Integer.parseInt(br.readLine());
 
             br.close();
@@ -256,23 +223,23 @@ public class LoadSave {
     }
 
     public static void ReadOnLoad() {
-        File txtFilea = new File("res/data/achievements.txt");
-        File txtFiles = new File("res/data/settings.txt");
-        File txtFilei = new File("res/data/info.txt");
+        InputStream txtFilea = ClassLoader.getSystemClassLoader().getResourceAsStream("data/achievements.txt");
+        InputStream txtFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("data/settings.txt");
+        InputStream txtFilei = ClassLoader.getSystemClassLoader().getResourceAsStream("data/info.txt");
         try{
-            BufferedReader bra = new BufferedReader(new FileReader(txtFilea));
+            BufferedReader bra = new BufferedReader(new InputStreamReader(txtFilea));
+            BufferedReader brs = new BufferedReader(new InputStreamReader(txtFiles));
+            BufferedReader bri = new BufferedReader(new InputStreamReader(txtFilei));
 
             Game.boss1Killed = Boolean.parseBoolean(bra.readLine());
-            bra.close();
-
-            BufferedReader brs = new BufferedReader(new FileReader(txtFiles));
 
             Game.ARROWKEYS = Boolean.parseBoolean(brs.readLine());
             Game.scrollDirection = Boolean.parseBoolean(brs.readLine());
-            brs.close();
 
-            BufferedReader bri = new BufferedReader(new FileReader(txtFilei));
             saveAmount = Integer.parseInt(bri.readLine());
+
+            bra.close();
+            brs.close();
             bri.close();
 
         } catch (Exception e) {

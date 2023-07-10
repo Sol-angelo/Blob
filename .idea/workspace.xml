@@ -8,8 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/achievements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/data/achievements.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/res/data/info.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/data/info.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" afterDir="false" />
     </list>
@@ -144,7 +144,14 @@
       <option name="project" value="LOCAL" />
       <updated>1685577040906</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fixes">
+      <created>1688957424216</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1688957424216</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -173,6 +180,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.io.FileNotFoundException" package="java.io" />
           <option name="timeStamp" value="1" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.RuntimeException" package="java.lang" />
+          <option name="timeStamp" value="2" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

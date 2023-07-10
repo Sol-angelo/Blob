@@ -379,11 +379,11 @@ public class Menu extends MouseAdapter
                 }
             } else if (Game.gameState == Game.STATE.Easy || Game.gameState == Game.STATE.Medium || Game.gameState == Game.STATE.Hard) {
                 if (Game.paused) {
-                    if (this.mouseOver(mx, my, 210, 150, 200, 64)) {
+                    if (this.mouseOver(mx, my, 210, 100, 200, 64)) {
                         clicked = true;
                         Game.paused = false;
                     }
-                    if (this.mouseOver(mx, my, 210, 250, 200, 64)) {
+                    if (this.mouseOver(mx, my, 210, 200, 200, 64)) {
                         LoadSave.OverwriteSaveFile("Game", Game.inGameSaveInt);
                         Game.inGameSaveInt = 0;
                         clicked = true;
@@ -392,9 +392,12 @@ public class Menu extends MouseAdapter
                         for (int i = 0; i < 20; ++i) {
                             this.handler.addObject(new MenuParticle((float) this.r.nextInt(640), (float) this.r.nextInt(480), ID.MenuParticle, this.handler));
                         }
+                        HUD.setHealth(100);
+                        HUD.setLevel(1);
+                        HUD.setScore(0);
                         Game.paused = false;
                     }
-                    if (this.mouseOver(mx, my, 210, 350, 200, 64)) {
+                    if (this.mouseOver(mx, my, 210, 300, 200, 64)) {
                         LoadSave.OverwriteSaveFile("Game", Game.inGameSaveInt);
                         Game.inGameSaveInt = 0;
                         clicked = true;
@@ -1106,7 +1109,6 @@ public class Menu extends MouseAdapter
 
 
             }
-            if (Game.gameState == Game.STATE.SaveloadIG) {
             /*if (this.mouseOver(mx, my, 50, 50, 200, 64)) {
                 if (Game.getCurrentGameStateToInt() == 1) {
                     Game.gameState = Game.STATE.Easy;
@@ -1146,7 +1148,6 @@ public class Menu extends MouseAdapter
                     System.out.println("saved 2");
                 }
             }*/
-        }
     }
     
     @Override
