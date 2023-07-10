@@ -14,7 +14,6 @@ public class LoadSave {
     public static int level;
     public static int score;
     public static float health;
-
     public static int state;
     public static boolean regen;
     public static int saveAmount;
