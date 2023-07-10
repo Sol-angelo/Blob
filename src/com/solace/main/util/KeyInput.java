@@ -47,7 +47,7 @@ public class KeyInput extends KeyAdapter
                             }
                         }
                         Menu.selected = Selected.None;
-                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3));
+                        LoadSave.DeleteFile("saves","savedata"+((Menu.page) * 3));
                     } else if (Menu.selected == Selected.Game2) {
                         if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3 + 2))) {
                             if (Menu.page != 1) {
@@ -58,7 +58,7 @@ public class KeyInput extends KeyAdapter
                             }
                         }
                         Menu.selected = Selected.None;
-                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3 + 1));
+                        LoadSave.DeleteFile("saves","savedata"+((Menu.page) * 3 + 1));
                     } else if (Menu.selected == Selected.Game3) {
                         if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3+1) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3))) {
                             if (Menu.page != 1) {
@@ -69,7 +69,7 @@ public class KeyInput extends KeyAdapter
                             }
                         }
                         Menu.selected = Selected.None;
-                        LoadSave.DeleteFile("saves/savedata"+((Menu.page) * 3 + 2));
+                        LoadSave.DeleteFile("saves","savedata"+((Menu.page) * 3 + 2));
                     }
                 }
             }

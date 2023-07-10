@@ -8,6 +8,9 @@
   <component name="ChangeListManager">
     <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/data/saves/savedata0.txt" beforeDir="false" afterPath="$PROJECT_DIR$/res/data/saves/savedata0.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/KeyInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,7 +158,14 @@
       <option name="project" value="LOCAL" />
       <updated>1688971504421</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="fixes">
+      <created>1688986317646</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1688986317646</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">

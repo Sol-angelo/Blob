@@ -5,6 +5,7 @@ import com.solace.main.util.HUD;
 import com.sun.tools.javac.Main;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.locks.Lock;
@@ -25,8 +26,26 @@ public class LoadSave {
         this.game = game;
     }
 
+    public static File getFileByOS(String addpath, String name) {
+        String osname = System.getProperty("os.name");
+        if (osname.contains("Mac")) {
+            Path path = Path.of(System.getProperty("user.home"), "Library", "Application Support", "Solangelo", "Blob");
+            File path2 = new File(path + "/" + addpath);
+            path2.mkdirs();
+            File txt = new File(path2 + "/"+name+".txt");
+            return txt;
+        } else if (osname.contains("Window")) {
+            Path path = Path.of(System.getProperty("user.home"), "AppData", "Solangelo", "Blob");
+            File path2 = new File(path + "/" + addpath);
+            path2.mkdirs();
+            File txt = new File(path2 + "/"+name+".txt");
+            return txt;
+        }
+        return null;
+    }
+
     public static boolean CheckForSaveFile(int saveNumber) {
-        File txtFile = new File("res/data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves", "savedata"+saveNumber);
         return txtFile.exists();
     }
 
@@ -41,8 +60,8 @@ public class LoadSave {
             }
         }
         try {
-            FileOutputStream outputStream = new FileOutputStream("res/data/saves/savedata"+number+".txt");
-            PrintWriter pw = new PrintWriter(outputStream);
+            File txtFile = getFileByOS("saves", "savedata"+number);
+            PrintWriter pw = new PrintWriter(txtFile);
             pw.println(name);
             pw.println((int)HUD.HEALTH);
             pw.println(HUD.getStaticScore());
@@ -59,8 +78,8 @@ public class LoadSave {
 
     public static void OverwriteSaveFile(String name, int number) {
         try {
-            FileOutputStream outputStream = new FileOutputStream("res/data/saves/savedata"+number+".txt");
-            PrintWriter pw = new PrintWriter(outputStream);
+            File txtFile = getFileByOS("saves", "savedata"+number);
+            PrintWriter pw = new PrintWriter(txtFile);
             pw.println(name);
             pw.println((int)HUD.HEALTH);
             pw.println(HUD.getStaticScore());
@@ -76,8 +95,8 @@ public class LoadSave {
 
     public static void CreateInfoFile() {
         try {
-            FileOutputStream outputStream = new FileOutputStream("res/data/info.txt");
-            PrintWriter pw = new PrintWriter(outputStream);
+            File txtFile = getFileByOS("data","info");
+            PrintWriter pw = new PrintWriter(txtFile);
             pw.println(saveAmount);
             pw.close();
 
@@ -88,8 +107,8 @@ public class LoadSave {
 
     public static void CreateSettingsFile() {
         try {
-            FileOutputStream outputStream = new FileOutputStream("res/data/settings.txt");
-            PrintWriter pw = new PrintWriter(outputStream);
+            File txtFile = getFileByOS("data","settings");
+            PrintWriter pw = new PrintWriter(txtFile);
             pw.println(Game.ARROWKEYS);
             pw.println(Game.scrollDirection);
             pw.close();
@@ -101,8 +120,8 @@ public class LoadSave {
 
     public static void CreateAchievementsFile() {
         try {
-            FileOutputStream outputStream = new FileOutputStream("res/data/achievements.txt");
-            PrintWriter pw = new PrintWriter(outputStream);
+            File txtFile = getFileByOS("data","achievements");
+            PrintWriter pw = new PrintWriter(txtFile);
             pw.write(String.valueOf(Game.boss1Killed));
             pw.close();
 
@@ -112,9 +131,9 @@ public class LoadSave {
     }
 
     public static void ReadFromSaveFile(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             String name = br.readLine();
             health = Integer.parseInt(br.readLine());
@@ -136,22 +155,19 @@ public class LoadSave {
     }
 
     public static String ReadFromSaveFileName(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves", "savedata"+saveNumber);
         try{
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
-            String name = br.readLine();
-            br.close();
-            return name;
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+            return br.readLine();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public static Float ReadFromSaveFileHealth(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
         try{
-            assert txtFile != null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
             health = Integer.parseInt(br.readLine());
@@ -165,10 +181,9 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileScore(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
         try{
-            assert txtFile != null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
             br.readLine();
@@ -183,10 +198,9 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileLevel(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
         try{
-            assert txtFile != null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
             br.readLine();
@@ -202,10 +216,9 @@ public class LoadSave {
     }
 
     public static Integer ReadFromSaveFileState(int saveNumber) {
-        InputStream txtFile = ClassLoader.getSystemClassLoader().getResourceAsStream("data/saves/savedata"+saveNumber+".txt");
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
         try{
-            assert txtFile != null;
-            BufferedReader br = new BufferedReader(new InputStreamReader(txtFile));
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
             br.readLine();
@@ -222,33 +235,40 @@ public class LoadSave {
     }
 
     public static void ReadOnLoad() {
-        InputStream txtFilea = ClassLoader.getSystemClassLoader().getResourceAsStream("data/achievements.txt");
-        InputStream txtFiles = ClassLoader.getSystemClassLoader().getResourceAsStream("data/settings.txt");
-        InputStream txtFilei = ClassLoader.getSystemClassLoader().getResourceAsStream("data/info.txt");
-        try{
-            BufferedReader bra = new BufferedReader(new InputStreamReader(txtFilea));
-            BufferedReader brs = new BufferedReader(new InputStreamReader(txtFiles));
-            BufferedReader bri = new BufferedReader(new InputStreamReader(txtFilei));
+        File txtFilea = getFileByOS("data","achievements");
+        File txtFiles = getFileByOS("data","settings");
+        File txtFilei = getFileByOS("data","info");
+        if (txtFilea.exists() && txtFilei.exists() && txtFiles.exists()) {
+            try {
+                BufferedReader bra = new BufferedReader(new FileReader(txtFilea));
+                BufferedReader brs = new BufferedReader(new FileReader(txtFiles));
+                BufferedReader bri = new BufferedReader(new FileReader(txtFilei));
 
-            Game.boss1Killed = Boolean.parseBoolean(bra.readLine());
+                Game.boss1Killed = Boolean.parseBoolean(bra.readLine());
 
-            Game.ARROWKEYS = Boolean.parseBoolean(brs.readLine());
-            Game.scrollDirection = Boolean.parseBoolean(brs.readLine());
+                Game.ARROWKEYS = Boolean.parseBoolean(brs.readLine());
+                Game.scrollDirection = Boolean.parseBoolean(brs.readLine());
 
-            saveAmount = Integer.parseInt(bri.readLine());
+                saveAmount = Integer.parseInt(bri.readLine());
 
-            bra.close();
-            brs.close();
-            bri.close();
+                bra.close();
+                brs.close();
+                bri.close();
 
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            CreateAchievementsFile();
+            CreateSettingsFile();
+            CreateInfoFile();
         }
     }
 
-    public static void DeleteFile(String name) {
-        File txtFile = new File("res/data/"+name+".txt");
+    public static void DeleteFile(String addpath, String name) {
+        File txtFile = getFileByOS(addpath, name);
         if (txtFile.exists()) {
+            System.out.println("file exists");
             txtFile.delete();
         }
     }

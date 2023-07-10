@@ -65,6 +65,9 @@ public class Game extends Canvas implements Runnable
                 this.handler.addObject(new MenuParticle((float)this.r.nextInt(640), (float)this.r.nextInt(480), ID.MenuParticle, this.handler));
             }
         }
+        //LoadSave.getFileByOS("test");
+        System.out.println(System.getProperty("os.name"));
+        //System.out.println(System.getProperty("user.home")+"/Library/Application Support/Solangelo/Blob/saves");
     }
 
     public static int getArrowkeysToInt() {
