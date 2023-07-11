@@ -35,8 +35,7 @@ public class KeyInput extends KeyAdapter
     public void keyPressed(final KeyEvent e) {
         final float key = (float) e.getKeyCode();
         if (Game.gameState == Game.STATE.SelectGame) {
-            if (Menu.selected != Selected.None) {
-                if (key == KeyEvent.VK_DELETE || key == KeyEvent.VK_B) {
+                if (key == KeyEvent.VK_DELETE || key == KeyEvent.VK_B && Menu.selected != Selected.None) {
                     if (Menu.selected == Selected.Game1) {
                         if (!(LoadSave.CheckForSaveFile((Menu.page - 1) * 3+1) || LoadSave.CheckForSaveFile((Menu.page - 1) * 3 + 2))) {
                             if (Menu.page != 1) {
@@ -65,14 +64,15 @@ public class KeyInput extends KeyAdapter
                                 Menu.page--;
                                 Menu.pageAmount--;
                             } else {
-                                Game.gameState = Game.STATE.GameCreation;
+                                Game.gameState = Game.STATE.Menu;
                             }
                         }
                         Menu.selected = Selected.None;
                         LoadSave.DeleteFile("saves","savedata"+((Menu.page) * 3 + 2));
                     }
+                } else if (key == KeyEvent.VK_ESCAPE) {
+                    Game.gameState = Game.STATE.Menu;
                 }
-            }
         } else {
             if (!Game.ARROWKEYS) {
                 for (int i = 0; i < this.handler.object.size(); ++i) {

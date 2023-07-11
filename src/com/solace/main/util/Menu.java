@@ -111,7 +111,18 @@ public class Menu extends MouseAdapter
                 if (page >= pageAmount && pageAmount != 0) {
 
                 }
+            } else if (Game.gameState == Game.STATE.ConfirmReset) {
+                if (this.mouseOver(mx, my, 220, 200, 200, 64)) {
+                    LoadSave.clearDirectory("saves");
+                    Game.gameState = Game.STATE.Settings;
+                }
+                if (this.mouseOver(mx, my, 220, 300, 200, 64)) {
+                    Game.gameState = Game.STATE.Settings;
+                }
             } else if (Game.gameState == Game.STATE.Settings) {
+                if (this.mouseOver(mx, my, 460, 50, 164, 64)) {
+                    Game.gameState = Game.STATE.ConfirmReset;
+                }
                 if (this.mouseOver(mx, my, 350, 174, 32, 16)) {
                     clicked = true;
                     if (this.game.ARROWKEYS) {
@@ -1171,6 +1182,7 @@ public class Menu extends MouseAdapter
     
     public void render(final Graphics g) {
         final Font fnt = new Font("arial", 1, 50);
+        final Font fnt5 = new Font("arial", 1, 40);
         final Font fnt2 = new Font("arial", 1, 30);
         final Font fnt3 = new Font("arial", 1, 20);
         final Font fnt4 = new Font("arial", 1, 14);
@@ -1220,11 +1232,29 @@ public class Menu extends MouseAdapter
                 g.setColor(new Color(215, 65, 31));
                 g.fillRect(366, 275, 15, 14);
             }
+
+            g.setColor(new Color(17, 17, 17, 100));
+            g.fillRect(460, 50, 164, 64);
+
+            g.setColor(Color.white);
+            g.setFont(fnt2);
+            g.drawString("Reset", 500, 92);
+            g.drawRect(460, 50, 164, 64);
+
             g.setFont(fnt2);
             g.setColor(Color.white);
             g.drawString("Back", 130, 90);
             g.setColor(Color.WHITE);
             g.drawRect(50, 50, 200, 64);
+        } else if (Game.gameState == Game.STATE.ConfirmReset) {
+            g.setFont(fnt5);
+            g.setColor(Color.white);
+            g.drawString("Are you sure?", 200, 140);
+            g.setFont(fnt5);
+            g.drawString("Yes", 285, 250);
+            g.drawString("No", 295, 350);
+            g.drawRect(220, 200, 200, 64);
+            g.drawRect(220, 300, 200, 64);
         }
         else if (Game.gameState == Game.STATE.Saveload) {
             g.setColor(new Color(17, 17, 17, 100));

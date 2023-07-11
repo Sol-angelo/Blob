@@ -190,7 +190,7 @@ public class Game extends Canvas implements Runnable
                 this.spawner.difficulty = Spawn.Difficulty.Hard;
                 this.spawner.tick();
             }
-            else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.SelectGame || gameState == STATE.GameCreation || gameState == STATE.Settings ) {
+            else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.SelectGame || gameState == STATE.GameCreation || gameState == STATE.Settings || gameState == STATE.ConfirmReset) {
                 this.menu.tick();
                 HUD.setLevel(1);
                 HUD.setScore(0);
@@ -219,7 +219,7 @@ public class Game extends Canvas implements Runnable
         if (gameState == STATE.Easy || gameState == STATE.Medium || gameState == STATE.Hard) {
             this.hud.render(g);
         }
-        else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Death || gameState == STATE.Difficulty || gameState == STATE.Saveload || gameState == STATE.Settings || gameState == STATE.SelectGame || gameState == STATE.GameCreation) {
+        else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Death || gameState == STATE.Difficulty || gameState == STATE.Saveload || gameState == STATE.Settings || gameState == STATE.SelectGame || gameState == STATE.GameCreation || gameState == STATE.ConfirmReset) {
             this.menu.render(g);
         }
         if (paused) {
@@ -273,6 +273,7 @@ public class Game extends Canvas implements Runnable
         Settings,
         Achievements,
         GameCreation,
-        SelectGame
+        SelectGame,
+        ConfirmReset
     }
 }

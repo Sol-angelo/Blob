@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Objects;
 import java.util.concurrent.locks.Lock;
 
+
 public class LoadSave {
     private HUD hud;
     public static int level;
@@ -270,6 +271,33 @@ public class LoadSave {
         if (txtFile.exists()) {
             System.out.println("file exists");
             txtFile.delete();
+        }
+    }
+
+    public static void clearDirectory(String path) {
+        String osname = System.getProperty("os.name");
+        if (osname.contains("Mac")) {
+            Path path1 = Path.of(System.getProperty("user.home"), "Library", "Application Support", "Solangelo", "Blob");
+            File path2 = new File(path1 + "/" + path);
+            path2.mkdirs();
+            for (File file : path2.listFiles()) {
+                if (!file.isDirectory()) {
+                    file.delete();
+                }
+            }
+            saveAmount = 0;
+            CreateInfoFile();
+        } else if (osname.contains("Window")) {
+            Path path1 = Path.of(System.getProperty("user.home"), "AppData", "Solangelo", "Blob");
+            File path2 = new File(path1 + "/" + path);
+            path2.mkdirs();
+            for (File file : path2.listFiles()) {
+                if (!file.isDirectory()) {
+                    file.delete();
+                }
+            }
+            saveAmount = 0;
+            CreateInfoFile();
         }
     }
 }
