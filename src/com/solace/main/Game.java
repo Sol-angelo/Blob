@@ -48,7 +48,7 @@ public class Game extends Canvas implements Runnable
         this.handler = new Handler(this);
         this.hud = new HUD(this, this.handler);
         this.menu = new Menu(this, this.handler, this.hud);
-        this.addKeyListener(new KeyInput(this.handler, this));
+        this.addKeyListener(new KeyInput(this.handler));
         this.addMouseListener(this.menu);
         window = new Window(640.0f, 480.0f, "Blob", this, false);
         final BufferedImageLoader loader = new BufferedImageLoader();

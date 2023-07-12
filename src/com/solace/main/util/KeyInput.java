@@ -13,14 +13,12 @@ import java.awt.event.KeyAdapter;
 
 public class KeyInput extends KeyAdapter
 {
-    private Handler handler;
-    private boolean[] keyDown;
-    private Game game;
-    
-    public KeyInput(final Handler handler, final Game game) {
+    private final Handler handler;
+    private final boolean[] keyDown;
+
+    public KeyInput(final Handler handler) {
         this.keyDown = new boolean[8];
         this.handler = handler;
-        this.game = game;
         this.keyDown[0] = false;
         this.keyDown[1] = false;
         this.keyDown[2] = false;
@@ -133,10 +131,8 @@ public class KeyInput extends KeyAdapter
                     if (Game.getCurrentGameStateToInt() == 3) {
                         Game.gameState = Game.STATE.Hard;
                     }
-                } else if (Game.paused) {
-                    Game.paused = false;
-                } else if (!Game.paused) {
-                    Game.paused = true;
+                } else {
+                    Game.paused = !Game.paused;
                 }
             }
         }
@@ -169,7 +165,7 @@ public class KeyInput extends KeyAdapter
                     }
                 }
             }
-        } else if (!Game.ARROWKEYS) {
+        } else {
             for (int i = 0; i < this.handler.object.size(); ++i) {
                 final GameObject tempObject = this.handler.object.get(i);
                 if (tempObject.getId() == ID.Player) {
