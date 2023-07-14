@@ -16,6 +16,7 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Random;
 import java.awt.Canvas;
 
@@ -66,7 +67,6 @@ public class Game extends Canvas implements Runnable
             }
         }
         //LoadSave.getFileByOS("test");
-        System.out.println(System.getProperty("os.name"));
         //System.out.println(System.getProperty("user.home")+"/Library/Application Support/Solangelo/Blob/saves");
     }
 

@@ -49,38 +49,6 @@ public class Menu extends MouseAdapter
     }
 
     @Override
-    public void mouseWheelMoved(MouseWheelEvent e) {
-        System.out.println("mouse wheel moved");
-        if (Game.gameState == Game.STATE.SelectGame) {
-            System.out.println("select game mouse wheel");
-            /*if (Game.scrollDirection) {
-                scrollAmount -= e.getWheelRotation();
-            } else {
-                scrollAmount += e.getWheelRotation();
-            }*/
-            String message;
-            int notches = e.getWheelRotation();
-            if (notches < 0) {
-                message = "Mouse wheel moved UP " + -notches + " notch(es)";
-            } else {
-                message = "Mouse wheel moved DOWN " + notches + " notch(es)";
-            }
-            if (e.getScrollType() == MouseWheelEvent.WHEEL_UNIT_SCROLL) {
-                message += "    Scroll type: WHEEL_UNIT_SCROLL";
-                message += "    Scroll amount: " + e.getScrollAmount()
-                        + " unit increments per notch" ;
-                message += "    Units to scroll: " + e.getUnitsToScroll()
-                        + " unit increments" ;
-                //message += "    Vertical unit increment: " + scrollPane.getVerticalScrollBar().getUnitIncrement(1) + " pixels" ;
-            } else { //scroll type == MouseWheelEvent.WHEEL_BLOCK_SCROLL
-                message += "    Scroll type: WHEEL_BLOCK_SCROLL" ;
-                //message += "    Vertical block increment: " + scrollPane.getVerticalScrollBar().getBlockIncrement(1) + " pixels" ;
-            }
-            System.out.println(message + " " + e);
-        }
-    }
-
-    @Override
     public void mouseClicked(final MouseEvent e) {
         final int mx = e.getX();
         final int my = e.getY();
