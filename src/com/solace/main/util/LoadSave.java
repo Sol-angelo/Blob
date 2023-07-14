@@ -1,6 +1,7 @@
 package com.solace.main.util;
 
 import com.solace.main.Game;
+import com.solace.main.objects.Player;
 import com.solace.main.util.HUD;
 import com.sun.tools.javac.Main;
 
@@ -21,6 +22,7 @@ import java.util.concurrent.locks.Lock;
 
 public class LoadSave {
     private HUD hud;
+    private static Handler handler;
     public static int level;
     public static int score;
     public static float health;
@@ -34,9 +36,10 @@ public class LoadSave {
 
     private static Game game;
 
-    public LoadSave(final HUD hud, Game game) {
+    public LoadSave(final HUD hud, Game game, Handler handler) {
         this.hud = hud;
         this.game = game;
+        this.handler = handler;
     }
 
     public static File getFileByOS(String addpath, String name) {
@@ -100,6 +103,8 @@ public class LoadSave {
             pw.println(HUD.getStaticLevel());
             pw.println(Game.getCurrentGameStateToInt());
             pw.println(Game.regen);
+            pw.println(handler.getPlayer().getX());
+            pw.println(handler.getPlayer().getY());
             pw.close();
             encrypt(key, txtFile, eFile);
             CreateInfoFile();
@@ -113,7 +118,7 @@ public class LoadSave {
         try {
             File txtFile = getFileByOS("saves", "savedata"+number);
             File eFile = getEncryptedByOS("saves", "savedata"+number);
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             PrintWriter pw = new PrintWriter(txtFile);
             pw.println(name);
             pw.println((int)HUD.HEALTH);
@@ -121,6 +126,8 @@ public class LoadSave {
             pw.println(HUD.getStaticLevel());
             pw.println(Game.getCurrentGameStateToInt());
             pw.println(Game.regen);
+            pw.println(handler.getPlayer().getX());
+            pw.println(handler.getPlayer().getY());
             pw.close();
             encrypt(key, txtFile, eFile);
         } catch (FileNotFoundException | CryptoException e) {
@@ -172,7 +179,9 @@ public class LoadSave {
         File txtFile = getFileByOS("saves","savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (!txtFile.exists()) {
+                if (eFile.exists()) decrypt(key, eFile, txtFile);
+            }
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             String name = br.readLine();
@@ -200,7 +209,7 @@ public class LoadSave {
         File txtFile = getFileByOS("saves", "savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
             String string = br.readLine();
             encrypt(key, txtFile, eFile);
@@ -214,7 +223,7 @@ public class LoadSave {
         File txtFile = getFileByOS("saves","savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
@@ -233,7 +242,7 @@ public class LoadSave {
         File txtFile = getFileByOS("saves","savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
@@ -253,7 +262,7 @@ public class LoadSave {
         File txtFile = getFileByOS("saves","savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
@@ -274,7 +283,7 @@ public class LoadSave {
         File txtFile = getFileByOS("saves","savedata"+saveNumber);
         File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
         try{
-            decrypt(key, eFile, txtFile);
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
             BufferedReader br = new BufferedReader(new FileReader(txtFile));
 
             br.readLine();
@@ -286,6 +295,55 @@ public class LoadSave {
             br.close();
             encrypt(key, txtFile, eFile);
             return state;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static float ReadFromSaveFilePlayerX(int saveNumber) {
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
+        File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
+        try{
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            float x = Float.parseFloat(br.readLine());
+
+            br.close();
+            encrypt(key, txtFile, eFile);
+            return x;
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static float ReadFromSaveFilePlayerY(int saveNumber) {
+        File txtFile = getFileByOS("saves","savedata"+saveNumber);
+        File eFile = getEncryptedByOS("saves", "savedata"+saveNumber);
+        try{
+            if (eFile.exists()) decrypt(key, eFile, txtFile);
+            BufferedReader br = new BufferedReader(new FileReader(txtFile));
+
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            br.readLine();
+            float y = Float.parseFloat(br.readLine());
+
+            br.close();
+            encrypt(key, txtFile, eFile);
+            return y;
 
         } catch (Exception e) {
             throw new RuntimeException(e);

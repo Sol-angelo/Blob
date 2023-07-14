@@ -29,6 +29,7 @@ public class Game extends Canvas implements Runnable
     private boolean running;
     private Random r;
     private Handler handler;
+    private LoadSave loadSave;
     private HUD hud;
     private Menu menu;
     private Spawn spawner;
@@ -49,6 +50,7 @@ public class Game extends Canvas implements Runnable
         this.handler = new Handler(this);
         this.hud = new HUD(this, this.handler);
         this.menu = new Menu(this, this.handler, this.hud);
+        this.loadSave = new LoadSave(hud, this, handler);
         this.addKeyListener(new KeyInput(this.handler));
         this.addMouseListener(this.menu);
         window = new Window(640.0f, 480.0f, "Blob", this, false);

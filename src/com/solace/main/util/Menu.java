@@ -162,7 +162,7 @@ public class Menu extends MouseAdapter
                     LoadSave.ReadFromSaveFile(0);
                     if (LoadSave.state == 1) {
                         Game.gameState = Game.STATE.Easy;
-                        this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                        this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(0), LoadSave.ReadFromSaveFilePlayerY(0), ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                         if (this.hud.getLevel() >= 2) {
@@ -237,7 +237,7 @@ public class Menu extends MouseAdapter
                     }
                     if (LoadSave.state == 2) {
                         Game.gameState = Game.STATE.Medium;
-                        this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                        this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(0), LoadSave.ReadFromSaveFilePlayerY(0), ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                         if (this.hud.getLevel() >= 2) {
@@ -293,7 +293,7 @@ public class Menu extends MouseAdapter
                     }
                     if (LoadSave.state == 3) {
                         Game.gameState = Game.STATE.Hard;
-                        this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                        this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(0), LoadSave.ReadFromSaveFilePlayerY(0), ID.Player, this.handler, this.game));
                         this.handler.clearEnemies();
                         this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                         if (this.hud.getLevel() >= 2) {
@@ -395,7 +395,7 @@ public class Menu extends MouseAdapter
                         LoadSave.ReadFromSaveFile((page - 1) * 3);
                         if (LoadSave.state == 1) {
                             Game.gameState = Game.STATE.Easy;
-                            this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                            this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX((page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY((page - 1) * 3), ID.Player, this.handler, this.game));
                             this.handler.clearEnemies();
                             this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                             LoadSave.ReadFromSaveFile((page - 1) * 3);
@@ -471,7 +471,7 @@ public class Menu extends MouseAdapter
                         }
                         if (LoadSave.state == 2) {
                             Game.gameState = Game.STATE.Medium;
-                            this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                            this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX((page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY((page - 1) * 3), ID.Player, this.handler, this.game));
                             this.handler.clearEnemies();
                             this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                             if (this.hud.getLevel() >= 2) {
@@ -528,7 +528,7 @@ public class Menu extends MouseAdapter
                         }
                         if (LoadSave.state == 3) {
                             Game.gameState = Game.STATE.Hard;
-                            this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                            this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX((page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY((page - 1) * 3), ID.Player, this.handler, this.game));
                             this.handler.clearEnemies();
                             this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                             if (this.hud.getLevel() >= 2) {
@@ -596,7 +596,7 @@ public class Menu extends MouseAdapter
                             LoadSave.ReadFromSaveFile((page - 1) * 3 + 1);
                             if (LoadSave.state == 1) {
                                 Game.gameState = Game.STATE.Easy;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(1+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(1+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 LoadSave.ReadFromSaveFile((page - 1) * 3 + 1);
@@ -672,7 +672,7 @@ public class Menu extends MouseAdapter
                             }
                             if (LoadSave.state == 2) {
                                 Game.gameState = Game.STATE.Medium;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(1+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(1+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 if (this.hud.getLevel() >= 2) {
@@ -729,7 +729,7 @@ public class Menu extends MouseAdapter
                             }
                             if (LoadSave.state == 3) {
                                 Game.gameState = Game.STATE.Hard;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(1+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(1+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 if (this.hud.getLevel() >= 2) {
@@ -798,7 +798,7 @@ public class Menu extends MouseAdapter
                             LoadSave.ReadFromSaveFile((page - 1) * 3 + 2);
                             if (LoadSave.state == 1) {
                                 Game.gameState = Game.STATE.Easy;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(2+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(2+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 LoadSave.ReadFromSaveFile((page - 1) * 3 + 2);
@@ -874,7 +874,7 @@ public class Menu extends MouseAdapter
                             }
                             if (LoadSave.state == 2) {
                                 Game.gameState = Game.STATE.Medium;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(2+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(2+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 if (this.hud.getLevel() >= 2) {
@@ -931,7 +931,7 @@ public class Menu extends MouseAdapter
                             }
                             if (LoadSave.state == 3) {
                                 Game.gameState = Game.STATE.Hard;
-                                this.handler.addObject(new Player(304.0f, 208.0f, ID.Player, this.handler, this.game));
+                                this.handler.addObject(new Player(LoadSave.ReadFromSaveFilePlayerX(2+(page - 1) * 3), LoadSave.ReadFromSaveFilePlayerY(2+(page - 1) * 3), ID.Player, this.handler, this.game));
                                 this.handler.clearEnemies();
                                 this.handler.addObject(new BasicEnemy((float) this.r.nextInt(590), (float) this.r.nextInt(430), ID.BasicEnemy, this.handler, this.game));
                                 if (this.hud.getLevel() >= 2) {

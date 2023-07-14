@@ -52,6 +52,15 @@ public class Handler extends MouseAdapter
         }
     }
 
+    public GameObject getPlayer() {
+        for (int i = 0; i < this.object.size(); ++i) {
+            final GameObject tempObject = this.object.get(i);
+            if (tempObject.getId() == ID.Player) {
+                return tempObject;
+            }
+        } return null;
+    }
+
     public void clearEnemiesB2() {
         for (int i = 0; i < this.object.size(); ++i) {
             final GameObject tempObject = this.object.get(i);
