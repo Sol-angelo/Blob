@@ -14,9 +14,8 @@ import java.awt.image.BufferStrategy;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URL;
 import java.util.Random;
 import java.awt.Canvas;
 
@@ -33,7 +32,7 @@ public class Game extends Canvas implements Runnable
     private HUD hud;
     private Menu menu;
     private Spawn spawner;
-    public Window window;
+    public static Window window;
     public static BufferedImage sprite_sheet;
     public static BufferedImage boss_1;
     public static boolean paused;
@@ -63,6 +62,7 @@ public class Game extends Canvas implements Runnable
         HUD.setScore(0);
         this.r = new Random();
         LoadSave.ReadOnLoad();
+        loopSound("blob");
         if (gameState == STATE.Menu || gameState == STATE.Death || gameState == STATE.Help || gameState == STATE.Difficulty) {
             for (int i = 0; i < 20; ++i) {
                 this.handler.addObject(new MenuParticle((float)this.r.nextInt(640), (float)this.r.nextInt(480), ID.MenuParticle, this.handler));
@@ -81,25 +81,46 @@ public class Game extends Canvas implements Runnable
     }
 
     public void playSound(String name) {
-        String soundFile = "res/sound/"+name+".wav";
+        URL url = this.getClass().getResource("/assets/sound/" +name+".wav");
         try {
-            File f = new File(soundFile);
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
+            if (url != null) {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.start();
+            }
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void stopSound(String name) throws LineUnavailableException, IOException, UnsupportedAudioFileException {
-        String soundFile = "res/sound/"+name+".wav";
-        File f = new File(soundFile);
-        AudioInputStream audioIn = AudioSystem.getAudioInputStream(f.toURI().toURL());
-        Clip clip = AudioSystem.getClip();
-        clip.open(audioIn);
-        clip.stop();
+    public void loopSound(String name) {
+        URL url = this.getClass().getResource("/assets/sound/" +name+".wav");
+        try {
+            if (url != null) {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.start();
+                clip.loop(999999999);
+            }
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void stopSound(String soundFile) {
+        URL url = this.getClass().getResource("/assets/sound/" +soundFile+".wav");
+        try {
+            if (url != null) {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.stop();
+            }
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static int getCurrentGameStateToInt() {
@@ -175,6 +196,7 @@ public class Game extends Canvas implements Runnable
     }
     
     private void tick() {
+        this.window.tick();
         if (!paused) {
             this.handler.tick();
             if (gameState == STATE.Easy) {

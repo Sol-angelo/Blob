@@ -6,12 +6,12 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="added encryption">
+    <list default="true" id="f3e3a5ff-343f-434c-913b-dca64e656305" name="Changes" comment="fixes">
+      <change afterPath="$PROJECT_DIR$/res/assets/sound/blob.wav" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/solace/main/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Handler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Handler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/LoadSave.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/solace/main/util/Window.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/solace/main/util/Window.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,29 +37,31 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;17&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/caydenward/Desktop/Blob/res/data/saves&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "jdk.selected.JAVA_MODULE": "17",
+    "last_opened_file_path": "/Users/caydenward/Desktop/Blob/res/assets/sound",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res/assets/sound" />
       <recent name="$PROJECT_DIR$/res/data/saves" />
       <recent name="$PROJECT_DIR$/res/sound" />
       <recent name="$PROJECT_DIR$/res/music" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/res/assets/textures" />
       <recent name="$PROJECT_DIR$/res/assets" />
-      <recent name="$PROJECT_DIR$/res/data" />
       <recent name="$PROJECT_DIR$/res" />
+      <recent name="$PROJECT_DIR$/res/assets/sound" />
+      <recent name="$PROJECT_DIR$/res/assets/textures" />
+      <recent name="$PROJECT_DIR$/res/data" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.solace.main" />
@@ -193,7 +195,14 @@
       <option name="project" value="LOCAL" />
       <updated>1689336823868</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="fixes">
+      <created>1689342255022</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1689342255022</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -213,12 +222,12 @@
     <MESSAGE value="kill powe rup + new save load system" />
     <MESSAGE value="fixed game select menu" />
     <MESSAGE value="cleaning" />
-    <MESSAGE value="fixes" />
     <MESSAGE value="rewrote saving and loading to be on the system" />
     <MESSAGE value="save clearing" />
     <MESSAGE value="stuff" />
     <MESSAGE value="added encryption" />
-    <option name="LAST_COMMIT_MESSAGE" value="added encryption" />
+    <MESSAGE value="fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -230,6 +239,10 @@
         <breakpoint enabled="true" type="java-exception">
           <properties class="java.lang.RuntimeException" package="java.lang" />
           <option name="timeStamp" value="2" />
+        </breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="3" />
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -17,13 +17,13 @@ import com.solace.main.util.enums.ID;
 import com.solace.main.util.enums.Selected;
 import com.solace.main.util.enums.SelectedCreation;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.Random;
 import java.awt.event.MouseAdapter;
+
+import static com.solace.main.Game.*;
 
 public class Menu extends MouseAdapter
 {
@@ -38,6 +38,7 @@ public class Menu extends MouseAdapter
     public SelectedCreation selectedCreation;
     public String currentSaveName;
     public boolean clicked = false;
+    public boolean[] hover = new boolean[4];
 
     public Menu(final Game game, final Handler handler, final HUD hud) {
         this.r = new Random();
@@ -1139,11 +1140,65 @@ public class Menu extends MouseAdapter
     }
     
     public void tick() {
+        mouseMovedCheck();
         for (int i = 0; i <= LoadSave.saveAmount; i++) {
             if (LoadSave.CheckForSaveFile(i)) {
                 if (i % 3 == 0) {
                     Menu.pageAmount = i / 3 + 1;
                 }
+            }
+        }
+    }
+
+    public void mouseMovedCheck() {
+        final int mx = MouseInfo.getPointerInfo().getLocation().x - window.getLocation().x;
+        final int my = MouseInfo.getPointerInfo().getLocation().y - window.getLocation().y;
+        //System.out.println(mx + " " + my);
+        if (gameState == STATE.Menu) {
+            if (mouseOver(mx, my, 210, 180, 200, 64)) {
+                hover[0] = true;
+                hover[1] = false;
+                hover[2] = false;
+                hover[3] = false;
+            } else if (mouseOver(mx, my, 210, 280, 200, 64)) {
+                hover[0] = false;
+                hover[1] = true;
+                hover[2] = false;
+                hover[3] = false;
+            } else if (mouseOver(mx, my, 210, 380, 200, 64)) {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = true;
+                hover[3] = false;
+            } else if (mouseOver(mx, my, 50, 380, 64, 64)) {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = false;
+                hover[3] = true;
+            }
+            else {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = false;
+                hover[3] = false;
+            }
+        } else if (gameState == STATE.Settings) {
+            if (mouseOver(mx, my, 50, 80, 200, 64)) {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = true;
+                hover[3] = false;
+            } else if (mouseOver(mx, my, 460, 80, 164, 64)) {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = false;
+                hover[3] = true;
+            }
+            else {
+                hover[0] = false;
+                hover[1] = false;
+                hover[2] = false;
+                hover[3] = false;
             }
         }
     }
@@ -1155,17 +1210,41 @@ public class Menu extends MouseAdapter
         final Font fnt3 = new Font("arial", 1, 20);
         final Font fnt4 = new Font("arial", 1, 14);
         if (Game.gameState == Game.STATE.Menu) {
-            g.setColor(new Color(17, 17, 17, 100));
-            g.fillRect(210, 150, 200, 64);
-            g.fillRect(210, 250, 200, 64);
-            g.fillRect(210, 350, 200, 64);
-            g.fillRect(50, 350, 64, 64);
+            if (hover[0]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(210, 150, 200, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(210, 150, 200, 64);
+            }
+            if (hover[1]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(210, 250, 200, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(210, 250, 200, 64);
+            }
+            if (hover[2]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(210, 350, 200, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(210, 350, 200, 64);
+            }
+            if (hover[3]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(50, 350, 64, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(50, 350, 64, 64);
+            }
             g.setFont(fnt);
             g.setColor(Color.white);
             g.drawString("Blob", 250, 75);
             g.setFont(fnt2);
             g.drawString("Play", 275, 190);
             g.drawString("Help", 275, 290);
+            g.setColor(Color.white);
             g.drawString("Quit", 275, 390);
             g.drawRect(210, 150, 200, 64);
             g.drawRect(210, 250, 200, 64);
@@ -1201,18 +1280,26 @@ public class Menu extends MouseAdapter
                 g.fillRect(366, 275, 15, 14);
             }
 
-            g.setColor(new Color(17, 17, 17, 100));
-            g.fillRect(460, 50, 164, 64);
+            if (hover[2]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(50, 50, 200, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(50, 50, 200, 64);
+            }
+            if (hover[3]) {
+                g.setColor(new Color(248, 248, 248, 100));
+                g.fillRect(460, 50, 164, 64);
+            } else {
+                g.setColor(new Color(17, 17, 17, 100));
+                g.fillRect(460, 50, 164, 64);
+            }
 
             g.setColor(Color.white);
             g.setFont(fnt2);
             g.drawString("Reset", 500, 92);
             g.drawRect(460, 50, 164, 64);
-
-            g.setFont(fnt2);
-            g.setColor(Color.white);
             g.drawString("Back", 130, 90);
-            g.setColor(Color.WHITE);
             g.drawRect(50, 50, 200, 64);
         } else if (Game.gameState == Game.STATE.ConfirmReset) {
             g.setFont(fnt5);

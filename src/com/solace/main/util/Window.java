@@ -16,10 +16,13 @@ import java.awt.image.BufferedImage;
 
 public class Window extends Canvas {
     private BufferedImage img;
+    static JFrame frame;
     static JTextField text = new JTextField(10);
+    static Dimension screenSize;
     
     public Window(final float width, final float height, final String title, final Game game, Boolean hasInputText) {
-        final JFrame frame = new JFrame(title);
+        frame = new JFrame(title);
+        screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         JPanel board = new JPanel();
         frame.setPreferredSize(new Dimension((int)width, (int)height));
         frame.setMaximumSize(new Dimension((int)width + 100, (int)height + 50));
@@ -55,6 +58,7 @@ public class Window extends Canvas {
         frame.setLocationRelativeTo(null);
         frame.add(text);
         frame.add(game);
+        frame.setLocation(screenSize.width/7, screenSize.height/8);
         frame.pack();
         frame.setVisible(true);
         game.start();
@@ -62,5 +66,9 @@ public class Window extends Canvas {
 
     public String getText() {
         return text.getText();
+    }
+
+    public void tick() {
+        this.setLocation(frame.getLocation());
     }
 }
